@@ -137,6 +137,7 @@ class _CompleteClassState extends State<CompleteClass> {
                                   .copyWith(fontWeight: FontWeight.bold),
                             )),
                         Expanded(
+                           flex: 2,
                             child: textStyle(
                           text: _tablcourse.courseType!,
                           style: TextStyles.body2
@@ -161,6 +162,7 @@ class _CompleteClassState extends State<CompleteClass> {
                                   .copyWith(fontWeight: FontWeight.bold),
                             )),
                         Expanded(
+                           flex: 2,
                             child: textStyle(
                           text: _tablcourse.progType!,
                           style: TextStyles.body2
@@ -185,6 +187,7 @@ class _CompleteClassState extends State<CompleteClass> {
                                   .copyWith(fontWeight: FontWeight.bold),
                             )),
                         Expanded(
+                           flex: 2,
                             child: textStyle(
                           text: _tablcourse.courseDuration!,
                           style: TextStyles.body2
@@ -209,6 +212,7 @@ class _CompleteClassState extends State<CompleteClass> {
                                   .copyWith(fontWeight: FontWeight.bold),
                             )),
                         Expanded(
+                           flex: 2,
                             child: textStyle(
                           text: _others.startDate.toString(),
                           style: TextStyles.body2
@@ -233,6 +237,7 @@ class _CompleteClassState extends State<CompleteClass> {
                                   .copyWith(fontWeight: FontWeight.bold),
                             )),
                         Expanded(
+                           flex: 2,
                             child: textStyle(
                           text: _others.endDate.toString(),
                           style: TextStyles.body2
@@ -257,6 +262,7 @@ class _CompleteClassState extends State<CompleteClass> {
                                   .copyWith(fontWeight: FontWeight.bold),
                             )),
                         Expanded(
+                           flex: 2,
                             child: textStyle(
                           text: _batch.timing!,
                           style: TextStyles.body2

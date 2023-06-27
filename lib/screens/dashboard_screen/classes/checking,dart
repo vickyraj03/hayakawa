@@ -25,7 +25,7 @@ videoId = YoutubePlayer.convertUrlToId(_info)!;
 print(videoId+"Checking data");
     _controller = YoutubePlayerController(
       initialVideoId:videoId,
-      flags: const YoutubePlayerFlags(
+      flags:  YoutubePlayerFlags(
         mute: false,
         autoPlay: true,
         disableDragSeek: false,

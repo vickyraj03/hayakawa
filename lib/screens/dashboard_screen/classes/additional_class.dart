@@ -308,38 +308,40 @@ late AdditionaClassCubit _additional;
       body: Column(
         children: [
            VSpace.med,
-       textStyle(text: '${_adittionalClass?.teacherName}'),
-           ListView.builder(
-      itemCount: classList!.length,
-       itemBuilder: (context, index) {
-        print("###################### ${classList?.length}");
-        return GestureDetector(
-           onTap: (){
-           
-             Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) => VideoPlayers(classID: '${classList![index].id}')));
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: DecoratedContainer(
-              clipFCorner: true,
-             child: Padding(  
-               padding:  EdgeInsets.symmetric(vertical: Insets.lg,horizontal: Insets.lg),
-               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  textStyle(text: 'Class ${classList![index].className}'),
-                  Icon(Icons.arrow_forward_ios)
-                ],
+       textStyle(text: 'SENSEI : ${_adittionalClass?.teacherName}'),
+           Expanded(
+             child: ListView.builder(
+                 itemCount: classList!.length,
+                  itemBuilder: (context, index) {
+                   print("###################### ${classList?.length}");
+                   return GestureDetector(
+             onTap: (){
+             
+               Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (BuildContext context) => VideoPlayers(classID: '${classList![index].id}')));
+                     },
+                     child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: DecoratedContainer(
+                clipFCorner: true,
+               child: Padding(  
+                 padding:  EdgeInsets.symmetric(vertical: Insets.lg,horizontal: Insets.lg),
+                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    textStyle(text: 'Class ${classList![index].className}'),
+                    Icon(Icons.arrow_forward_ios)
+                  ],
+                 ),
                ),
-             ),
-            ),
-          ),
-        );
-       }
-        ),
+              ),
+                     ),
+                   );
+                  }
+                   ),
+           ),
         ],
       )
                 );

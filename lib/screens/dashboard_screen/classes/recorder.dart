@@ -251,7 +251,7 @@ RecorderData? recorderData;
       children: [
        textStyle(text: '${recorderData?.courseName}'),
        VSpace.med,
-       textStyle(text: '${recorderData?.teacherName}'),
+       textStyle(text: 'SENSEI : ${recorderData?.teacherName}'),
       Expanded(
         child: ListView.builder(
         itemCount: recorderData?.batchList?.length,
@@ -391,7 +391,7 @@ VideoData? _videoData;
       body:  Column(
         children: [
        VSpace.med,
-       textStyle(text: '${_class?.teacherName}'),
+       textStyle(text: 'SENSEI : ${_class?.teacherName}'),
           Expanded(
             child: ListView.builder(
                   itemCount: _class?.classList?.length,

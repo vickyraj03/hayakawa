@@ -224,7 +224,13 @@ class _ActiveClassDetailsState extends State<ActiveClassDetails> {
       //   context,
       //   batch_header,
       // );
-      alertDlgInter(context, batch_header.toString());
+Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      IntractiveClass(interactive: loginResult,)));
+
+      //alertDlgInter(context, batch_header.toString());
       // _alertMsg(context, batch_message);
       return results;
 
@@ -236,19 +242,7 @@ class _ActiveClassDetailsState extends State<ActiveClassDetails> {
     }
   }
 
-  Future<void> _lun() async {
-    final Uri url = Uri.parse("$msgg");
-    if (!await launchUrl(url)) {
-      throw 'Could not launch $_url';
-    }
-  }
-
-  Future<void> _Glink() async {
-    final Uri url = Uri.parse("$g_url");
-    if (!await launchUrl(url)) {
-      throw 'Could not launch $_url';
-    }
-  }
+ 
 
   alertDlgInter(BuildContext context, String message) async =>
       //Product add to cart
@@ -287,8 +281,7 @@ class _ActiveClassDetailsState extends State<ActiveClassDetails> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment:
-                          CrossAxisAlignment.start, // To make the card compact
+                      crossAxisAlignment:CrossAxisAlignment.start, // To make the card compact
                       children: <Widget>[
                         Text(
                           "${batch_message}",
@@ -298,46 +291,46 @@ class _ActiveClassDetailsState extends State<ActiveClassDetails> {
                         ),
                         
                         SizedBox(height: 24.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: <Widget>[
-                            Align(
-                                alignment: Alignment.bottomCenter,
-                                child: IconButton(
-                                  icon: Image.asset(
-                                    "assets/img/Zoom_logo.png",
-                                  ),
-                                  iconSize: 60,
-                                  onPressed: () {
-                                    _lun();
-                                  },
-                                )
-                                // ElevatedButton(
-                                //   onPressed: () {
-                                //     Navigator.of(context)
-                                //         .pop(); // To close the dialog
-                                //   },
-                                //   child: Text('Proceed Later'),
-                                // ),
-                                ),
-                            Align(
-                                alignment: Alignment.bottomRight,
-                                child: IconButton(
-                                  icon: Image.asset(
-                                    "assets/img/google-classroom.jpg",
-                                  ),
-                                  iconSize: 100,
-                                  onPressed: () {
-                                    _Glink();
-                                  },
-                                )
-                                // ElevatedButton(
-                                //   onPressed: () {},
-                                //   child: Text('Proceed Now'),
-                                // ),
-                                ),
-                          ],
-                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        //   children: <Widget>[
+                        //     Align(
+                        //         alignment: Alignment.bottomCenter,
+                        //         child: IconButton(
+                        //           icon: Image.asset(
+                        //             "assets/img/Zoom_logo.png",
+                        //           ),
+                        //           iconSize: 60,
+                        //           onPressed: () {
+                        //             _lun();
+                        //           },
+                        //         )
+                        //         // ElevatedButton(
+                        //         //   onPressed: () {
+                        //         //     Navigator.of(context)
+                        //         //         .pop(); // To close the dialog
+                        //         //   },
+                        //         //   child: Text('Proceed Later'),
+                        //         // ),
+                        //         ),
+                        //     Align(
+                        //         alignment: Alignment.bottomRight,
+                        //         child: IconButton(
+                        //           icon: Image.asset(
+                        //             "assets/img/google-classroom.jpg",
+                        //           ),
+                        //           iconSize: 100,
+                        //           onPressed: () {
+                        //             _Glink();
+                        //           },
+                        //         )
+                        //         // ElevatedButton(
+                        //         //   onPressed: () {},
+                        //         //   child: Text('Proceed Now'),
+                        //         // ),
+                        //         ),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ),
@@ -354,6 +347,7 @@ class _ActiveClassDetailsState extends State<ActiveClassDetails> {
                           padding: const EdgeInsets.only(top: 20.0),
                           child:  SvgPicture.asset(
                               'assets/svg/Hayakawa_new_logo.svg',
+                              color: Colors.red,
                             ),
                         ),
                       )),
@@ -430,6 +424,7 @@ class _ActiveClassDetailsState extends State<ActiveClassDetails> {
                                     .copyWith(fontWeight: FontWeight.bold),
                               )),
                           Expanded(
+                             flex: 2,
                               child: textStyle(
                             text:
                                 widget.activeClassResult.tblCourse!.courseType!,
@@ -455,6 +450,7 @@ class _ActiveClassDetailsState extends State<ActiveClassDetails> {
                                     .copyWith(fontWeight: FontWeight.bold),
                               )),
                           Expanded(
+                             flex: 2,
                               child: textStyle(
                             text: widget.activeClassResult.tblCourse!.progType!,
                             style: TextStyles.body2
@@ -479,6 +475,7 @@ class _ActiveClassDetailsState extends State<ActiveClassDetails> {
                                     .copyWith(fontWeight: FontWeight.bold),
                               )),
                           Expanded(
+                             flex: 2,
                               child: textStyle(
                             text: widget
                                 .activeClassResult.tblCourse!.courseDuration!,
@@ -504,6 +501,7 @@ class _ActiveClassDetailsState extends State<ActiveClassDetails> {
                                     .copyWith(fontWeight: FontWeight.bold),
                               )),
                           Expanded(
+                             flex: 2,
                               child: textStyle(
                             text: widget.activeClassResult.others!.startDate
                                 .toString(),
@@ -529,6 +527,7 @@ class _ActiveClassDetailsState extends State<ActiveClassDetails> {
                                     .copyWith(fontWeight: FontWeight.bold),
                               )),
                           Expanded(
+                             flex: 2,
                               child: textStyle(
                             text: widget.activeClassResult.others!.endDate
                                 .toString(),
@@ -554,6 +553,7 @@ class _ActiveClassDetailsState extends State<ActiveClassDetails> {
                                     .copyWith(fontWeight: FontWeight.bold),
                               )),
                           Expanded(
+                             flex: 2,
                               child: textStyle(
                             text: widget.activeClassResult.batch!.timing!,
                             style: TextStyles.body2
@@ -793,3 +793,108 @@ class interactivemodel {
 
 
 
+
+
+class IntractiveClass extends StatefulWidget {
+   IntractiveClass({super.key, required this.interactive});
+   interactivemodel interactive;
+
+  @override
+  State<IntractiveClass> createState() => _IntractiveClassState();
+}
+
+class _IntractiveClassState extends State<IntractiveClass> {
+ var _url;
+  var zoom_url, g_url;
+  var msg1, mesg;
+    var msgg;
+
+ Future<void> _lun() async {
+    final Uri url = Uri.parse("$msgg");
+    if (!await launchUrl(url)) {
+      throw 'Could not launch $_url';
+    }
+  }
+
+  Future<void> _Glink() async {
+    final Uri url = Uri.parse("$g_url");
+    if (!await launchUrl(url)) {
+      throw 'Could not launch $_url';
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        centerTitle: true,
+        // automaticallyImplyLeading: false,
+        //  leading: Icon(Icons.drag_handle),
+        title: AppIcon(
+          icon: AppIcons.hayakawa_red_white,
+          size: Insets.xxl * 2.5,
+          color: AppColors.PrimaryColor,
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment:CrossAxisAlignment.start,
+          children: [
+            VSpace.lg,
+      Text(
+                            "${widget.interactive.batch_message}",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 16.0, fontWeight: FontWeight.w500),
+                          ),
+      
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: IconButton(
+                                    icon: Image.asset(
+                                      "assets/img/Zoom_logo.png",
+                                    ),
+                                    iconSize: 60,
+                                    onPressed: () {
+                                      _lun();
+                                    },
+                                  )
+                                  // ElevatedButton(
+                                  //   onPressed: () {
+                                  //     Navigator.of(context)
+                                  //         .pop(); // To close the dialog
+                                  //   },
+                                  //   child: Text('Proceed Later'),
+                                  // ),
+                                  ),
+                              Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: IconButton(
+                                    icon: Image.asset(
+                                      "assets/img/google-classroom.jpg",
+                                    ),
+                                    iconSize: 100,
+                                    onPressed: () {
+                                      _Glink();
+                                    },
+                                  )
+                                  // ElevatedButton(
+                                  //   onPressed: () {},
+                                  //   child: Text('Proceed Now'),
+                                  // ),
+                                  ),
+                            ],
+                          ),
+          ],
+        ),
+      ),
+    );
+  }
+}

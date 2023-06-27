@@ -187,15 +187,17 @@ class _MyWidgetState extends State<MyWidget> {
                 );
               });
             } else {
-              // showErrorDialog(context,
-              //   lableOk:  'Ok',
-              //   dtitle: '',
-              //   message: "${state.logindata.message}");
-              Future.delayed(Duration.zero, () async {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text("${state.logindata.message}"),
-                ));
-              });
+                Future.delayed(Duration.zero, () async {
+                   showErrorDialog(context,
+                lableOk:  'Ok',
+                dtitle: 'Login',
+                message: "${state.logindata.message}");
+                });
+              // Future.delayed(Duration.zero, () async {
+              //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              //     content: Text("${state.logindata.message}"),
+              //   ));
+              // });
             }
           }
           return buildLoginUI();
