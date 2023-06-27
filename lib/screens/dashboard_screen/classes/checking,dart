@@ -1,0 +1,67 @@
+import 'package:flutter/material.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
+class Checking extends StatefulWidget {
+var infoNew;
+  Checking(this.infoNew);
+  @override
+  State<StatefulWidget> createState() {
+    var jobDetailState = new _CheckingState(this.infoNew);
+    return jobDetailState;
+  }
+}
+class _CheckingState extends State<Checking> {
+  var _info;
+
+   _CheckingState(this._info);
+
+
+    late YoutubePlayerController _controller;
+   @override
+  void initState() {
+    super.initState();
+    String videoId;
+videoId = YoutubePlayer.convertUrlToId(_info)!;
+print(videoId+"Checking data");
+    _controller = YoutubePlayerController(
+      initialVideoId:videoId,
+      flags: const YoutubePlayerFlags(
+        mute: false,
+        autoPlay: true,
+        disableDragSeek: false,
+        loop: false,
+        isLive: false,
+        forceHD: false,
+        enableCaption: true,
+      ),
+    );
+  }
+ @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+  body:
+  YoutubePlayer(
+        controller: _controller,
+        showVideoProgressIndicator: true,
+        progressIndicatorColor: Colors.blueAccent,
+        topActions: <Widget>[
+          const SizedBox(width: 8.0),
+          Expanded(
+            child: Text(
+              _controller.metadata.title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 18.0,
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+            ),
+          ),
+])
+);
+  }
+
+}
+
+
