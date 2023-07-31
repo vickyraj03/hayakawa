@@ -862,8 +862,12 @@ class _IntractiveClassState extends State<IntractiveClass> {
                                       "assets/img/Zoom_logo.png",
                                     ),
                                     iconSize: 60,
-                                    onPressed: () {
-                                      _lun();
+                                    onPressed: () async{
+                                      final Uri url = Uri.parse(widget.interactive.zoomUrl);
+    if (!await launchUrl(url)) {
+      throw 'Could not launch ${widget.interactive.zoomUrl}';
+    }
+                                     // _lun();
                                     },
                                   )
                                   // ElevatedButton(
@@ -881,8 +885,12 @@ class _IntractiveClassState extends State<IntractiveClass> {
                                       "assets/img/google-classroom.jpg",
                                     ),
                                     iconSize: 100,
-                                    onPressed: () {
-                                      _Glink();
+                                    onPressed: () async{
+                                      final Uri url = Uri.parse(widget.interactive.googleClassroom);
+    if (!await launchUrl(url)) {
+      throw 'Could not launch ${widget.interactive.googleClassroom}';
+    }
+                                     // _Glink();
                                     },
                                   )
                                   // ElevatedButton(

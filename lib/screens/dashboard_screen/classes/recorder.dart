@@ -192,7 +192,7 @@ RecorderData? recorderData;
                       tabDecoration: isActive == true ? true : false,
                       fullcontainer: isComplete == false ? true : false,
                       child: textStyle(
-                        text: 'Recorder Videos',
+                        text: 'Recorded Videos',
                         style: isActive == true
                             ? TextStyles.body3w
                                 .copyWith(color: AppColors.PrimaryColor)
