@@ -347,7 +347,7 @@ Navigator.push(
                           padding: const EdgeInsets.only(top: 20.0),
                           child:  SvgPicture.asset(
                               'assets/svg/Hayakawa_new_logo.svg',
-                              color: Colors.red,
+                              color: Colors.red[900],
                             ),
                         ),
                       )),
@@ -365,7 +365,7 @@ Navigator.push(
     classDetailButtonList.add(  LiveDetails(title: 'Recorded', icon: "assets/svg/RECORDED.svg"),);
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.red[900],
         centerTitle: true,
         // automaticallyImplyLeading: false,
         //  leading: Icon(Icons.drag_handle),
@@ -391,7 +391,7 @@ Navigator.push(
                         width: double.infinity,
                         padding: EdgeInsets.symmetric(
                             horizontal: Insets.xs, vertical: Insets.sm),
-                        color: Colors.red,
+                        color: Colors.red[900],
                         //   clipFCorner: true,
                         child: Column(
                           children: [
@@ -838,7 +838,7 @@ class _IntractiveClassState extends State<IntractiveClass> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding:  EdgeInsets.all(20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -847,7 +847,8 @@ class _IntractiveClassState extends State<IntractiveClass> {
             VSpace.lg,
       Text(
                             "${widget.interactive.batch_message}",
-                            textAlign: TextAlign.center,
+                            textAlign: TextAlign.start,
+                            
                             style: TextStyle(
                                 fontSize: 16.0, fontWeight: FontWeight.w500),
                           ),

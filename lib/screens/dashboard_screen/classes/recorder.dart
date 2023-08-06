@@ -155,7 +155,7 @@ RecorderData? recorderData;
   Widget RecorderUI(){
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.red[900],
         centerTitle: true,
         // automaticallyImplyLeading: false,
         //  leading: Icon(Icons.drag_handle),

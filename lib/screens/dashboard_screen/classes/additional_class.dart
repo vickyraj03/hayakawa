@@ -78,62 +78,7 @@ class _AdditionalClassState extends State<AdditionalClass> {
                   } else if (_additionalClass!.purchasedStatus == 0) {
                     return Padding(
                       padding:  EdgeInsets.all(Insets.lg),
-                      child: IntrinsicHeight(
-                        child: DecoratedContainer(
-                          clipFCorner: true,
-                          child: Column(
-                            children: [
-                                 Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: Insets.lg, vertical: Insets.xs),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Expanded(
-                                flex: 2,
-                                child: textStyle(
-                                  text: 'Original Price',
-                                  style: TextStyles.subTitle2
-                                      .copyWith(fontWeight: FontWeight.bold),
-                                )),
-                            Expanded(
-                                child: textStyle(
-                              text: _additionalClass!.originalPrice.toString(),
-                              style: TextStyles.body2
-                                  .copyWith(color: AppColors.kTextThird),
-                              textAlign: TextAlign.right,
-                            )),
-                          ],
-                        ),
-                                          ),
-                                          VSpace.sm,
-                          Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: Insets.lg, vertical: Insets.xs),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Expanded(
-                                flex: 2,
-                                child: textStyle(
-                                  text: ' Offer Price',
-                                  style: TextStyles.subTitle2
-                                      .copyWith(fontWeight: FontWeight.bold),
-                                )),
-                            Expanded(
-                                child: textStyle(
-                              text: _additionalClass!.offerPrice.toString(),
-                              style: TextStyles.body2
-                                  .copyWith(color: AppColors.kTextThird),
-                              textAlign: TextAlign.right,
-                            )),
-                          ],
-                        ),
-                                          ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      child: textStyle(text: 'Sorry, you are not subscribed for additional class videos!'),
                     );
                   } else {
                     return Center(child: Text(''));

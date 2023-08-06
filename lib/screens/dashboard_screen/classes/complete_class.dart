@@ -68,7 +68,7 @@ class _CompleteClassState extends State<CompleteClass> {
               if(_completeclass!.isNotEmpty){
                 return _completeClassUI();
               }else{
-                return Center(child: Text(state.completeClass.data1.toString()),);
+                return Center(child: textStyle(text: 'Sorry, you don’t have any active batch!'));
               }
               
             } 
@@ -105,7 +105,7 @@ class _CompleteClassState extends State<CompleteClass> {
                       width: double.infinity,
                       padding: EdgeInsets.symmetric(
                           horizontal: Insets.xs, vertical: Insets.sm),
-                      color: Colors.red,
+                      color: Colors.red[900],
                       //   clipFCorner: true,
                       child: Column(
                         children: [

@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -32,8 +34,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
   bool isActive = true;
   bool isComplete = false;
 
-
-late ProfileCubit _profile;
+  late ProfileCubit _profile;
 
   Profiledata? profileData;
 
@@ -51,11 +52,10 @@ late ProfileCubit _profile;
     _profile.getProfile(map);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return InternetConnectivity(
-      ontapRetry: ()  => _loadProfile(),
+      ontapRetry: () => _loadProfile(),
       child: BlocConsumer<ProfileCubit, ProfileSate>(
           bloc: _profile,
           builder: (context, state) {
@@ -67,7 +67,7 @@ late ProfileCubit _profile;
                 ontap: () => _loadProfile(),
               );
             }
-    
+
             if (state is ProfileLoaded) {
               if (state.profiledata.result == "success") {
                 profileData = state.profiledata.data!;
@@ -86,10 +86,10 @@ late ProfileCubit _profile;
     );
   }
 
-  Widget _class(){
+  Widget _class() {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.red[900],
         centerTitle: true,
         // automaticallyImplyLeading: false,
         //  leading: Icon(Icons.drag_handle),
@@ -100,41 +100,58 @@ late ProfileCubit _profile;
         ),
       ),
       drawer: Drawer(
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: [
-            UserAccountsDrawerHeader(
-              decoration: BoxDecoration(color: Colors.red),
-              accountName: Text(
-                profileData!.name!, // Preferences.getUserName().toString(),
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+          child: Column(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 4,
+            child: ListView(
+              // Important: Remove any padding from the ListView.
+              padding: EdgeInsets.zero,
+              children: [
+                UserAccountsDrawerHeader(
+                    decoration: BoxDecoration(color: Colors.red[900]),
+                    accountName: Text(
+                      profileData!
+                          .name!, // Preferences.getUserName().toString(),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    accountEmail: Text(
+                      profileData!
+                          .email!, // Preferences.getUserEmail().toString(),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    currentAccountPicture: Cachednetworkimage(
+                      imgurl: profileData!.pictures,
+                    )),
+                ListTile(
+                  leading: Icon(Icons.logout),
+                  title: textStyle(
+                    text: 'Logout',
+                    style: TextStyles.body1,
+                  ),
+                  onTap: () {
+                    alertDlg(context, 'Do you want to Logout??');
+                  },
                 ),
-              ),
-              accountEmail: Text(
-                profileData!.email!, // Preferences.getUserEmail().toString(),
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              currentAccountPicture: Cachednetworkimage(imgurl: profileData!.pictures,)
-                          ),
-            
-            
-            ListTile(
-              leading: Icon(
-                Icons.logout
-              ),
-              title: const Text('Logout'),
-              onTap:  ()  {
-                      alertDlg(
-                                  context, 'Logout ?');
-                    },
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(Insets.lg),
+            child: textStyle(
+              text: 'v3.0',
+              style: TextStyles.body1,
+              textAlign: TextAlign.start,
+            ),
+          ),
+        ],
+      )),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

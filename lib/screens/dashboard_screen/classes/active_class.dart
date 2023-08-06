@@ -119,7 +119,7 @@ class _ActiveClassState extends State<ActiveClass> {
                         width: double.infinity,
                         padding: EdgeInsets.symmetric(
                             horizontal: Insets.xs, vertical: Insets.sm),
-                        color: Colors.red,
+                        color: Colors.red[900],
                         //   clipFCorner: true,
                         child: Column(
                           children: [

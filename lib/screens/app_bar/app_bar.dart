@@ -82,29 +82,27 @@ class _CustomAppBarState extends State<CustomAppBar> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: widget.bg,
+        backgroundColor: Colors.red[900],
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           centerTitle: true,
           toolbarHeight: 0,
           elevation: 0.2,
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.red[900],
         ), //AppBar
         body: Material(
           elevation: 2,
           borderRadius: kBackButtonShape1,
+          color: Colors.red[900],
           child: Container(
               decoration: BoxDecoration(
-                boxShadow: [
+                boxShadow: const [
                   BoxShadow(
                       color: Colors.grey,
                       blurRadius: 0.5,
                       spreadRadius: 0.0,
                       offset: Offset(0, 0))
                 ],
-                gradient: LinearGradient(
-                  colors: [Colors.red, Colors.red],
-                ),
                 borderRadius: kBackButtonShape1,
               ),
               child: Container()),

@@ -7,7 +7,8 @@ enum AppIcons {
   hayakawa_red_white,
   INTERACTIVE,
   LIVE,
-  RECORDED
+  RECORDED,
+  Hayakawa_new_logo
 }
 
 class AppIcon extends StatelessWidget {

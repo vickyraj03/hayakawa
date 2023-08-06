@@ -162,13 +162,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
               },
             ),
             ListTile(
-              leading: Icon(
-                Icons.logout
-              ),
+              leading: AppIcon(icon: AppIcons.Hayakawa_new_logo),
               title: const Text('Logout'),
               onTap:  ()  {
                       alertDlg(
-                                  context, 'Logout ?');
+                                  context, 'Do you want to Logout? ?');
                     },
             ),
           ],

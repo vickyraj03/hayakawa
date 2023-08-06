@@ -349,30 +349,30 @@ class _MyWidgetState extends State<MyWidget> {
                         ),
                       ),
                       VSpace.lg,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          FittedBox(
-                            child: textStyle(
-                                text: '${"Didn't have an account? "}',
-                                style: TextStyles.subTitle2),
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SignUp()),
-                              );
-                            },
-                            child: textStyle(
-                                text: '${'Sign Up'}',
-                                style: TextStyles.subTitle2.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.blue)),
-                          ),
-                        ],
-                      ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.center,
+                      //   children: [
+                      //     FittedBox(
+                      //       child: textStyle(
+                      //           text: '${"Didn't have an account? "}',
+                      //           style: TextStyles.subTitle2),
+                      //     ),
+                      //     GestureDetector(
+                      //       onTap: () {
+                      //         Navigator.push(
+                      //           context,
+                      //           MaterialPageRoute(
+                      //               builder: (context) => SignUp()),
+                      //         );
+                      //       },
+                      //       child: textStyle(
+                      //           text: '${'Sign Up'}',
+                      //           style: TextStyles.subTitle2.copyWith(
+                      //               fontWeight: FontWeight.bold,
+                      //               color: Colors.blue)),
+                      //     ),
+                      //   ],
+                      // ),
                       // Container(
                       //   height: 50,
                       //   margin: EdgeInsets.symmetric(horizontal: 50),

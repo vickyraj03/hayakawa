@@ -52,6 +52,7 @@ dependencies:
   webview_flutter: ^4.2.0
   youtube_player_flutter: ^8.1.0
   video_player: ^2.4.7
+  visibility_detector: ^0.4.0+2
   
 
   

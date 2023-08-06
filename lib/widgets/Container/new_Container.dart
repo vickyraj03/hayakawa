@@ -60,7 +60,7 @@ class DecoratedContainer extends StatelessWidget {
     }
     // Create decoration
     BoxDecoration dec = BoxDecoration(
-      color: fullcontainer?Colors.red:color,
+      color: fullcontainer?Colors.red[900]:color,
       border: border,
       borderRadius:buttonOnly?BorderRadius.circular(Corners.sm):BorderRadius.circular(Corners.med),
       boxShadow: buttonDecoration?Shadows.button:fullcontainer?Shadows.fullShadowContainer:

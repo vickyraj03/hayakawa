@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hayakawa_new/screens/dashboard_screen/classes/checking,dart';
-import 'package:hayakawa_new/widgets/style/app_color.dart';
 import 'package:hayakawa_new/widgets/style/style_insets.dart';
+import 'package:hayakawa_new/widgets/youTube_widget.dart';
 
 
 class MyWidgetVideo extends StatefulWidget {
@@ -21,7 +21,7 @@ class _MyWidgetVideoState extends State<MyWidgetVideo> {
         padding:  EdgeInsets.only(top: Insets.xxl),
         child: Stack(
           children: [
-            Checking(widget.Url),
+            YoutubeWidget( videoUrl: widget.Url,),
             Positioned(child: IconButton(
               icon: Icon(Icons.arrow_back_ios,
               color: Colors.white,
