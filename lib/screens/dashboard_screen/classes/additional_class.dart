@@ -77,8 +77,10 @@ class _AdditionalClassState extends State<AdditionalClass> {
                     return _additionalUI();
                   } else if (_additionalClass!.purchasedStatus == 0) {
                     return Padding(
-                      padding:  EdgeInsets.all(Insets.lg),
-                      child: textStyle(text: 'Sorry, you are not subscribed for additional class videos!'),
+                      padding: EdgeInsets.all(Insets.lg),
+                      child: textStyle(
+                          text:
+                              'Sorry, you are not subscribed for additional class videos!'),
                     );
                   } else {
                     return Center(child: Text(''));
@@ -111,9 +113,7 @@ class _AdditionalClassState extends State<AdditionalClass> {
               //        _videoData = state.videoData.data;
               //   }
               // }
-            })
-            
-            );
+            }));
   }
 
   Widget _additionalUI() {
@@ -131,9 +131,13 @@ class _AdditionalClassState extends State<AdditionalClass> {
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (BuildContext context) =>AdditionalClassList(batchId: "${_additionalClass!.batchList![index].batchId}",)));
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                AdditionalClassList(
+                                  batchId:
+                                      "${_additionalClass!.batchList![index].batchId}",
+                                )));
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -162,10 +166,8 @@ class _AdditionalClassState extends State<AdditionalClass> {
   }
 }
 
-
-
 class AdditionalClassList extends StatefulWidget {
-   AdditionalClassList({super.key, required this.batchId});
+  AdditionalClassList({super.key, required this.batchId});
   String batchId;
 
   @override
@@ -173,8 +175,7 @@ class AdditionalClassList extends StatefulWidget {
 }
 
 class _AdditionalClassListState extends State<AdditionalClassList> {
-
-late AdditionaClassCubit _additional;
+  late AdditionaClassCubit _additional;
 
   List<ClassList>? classList;
   AdditonalClass1Result? _adittionalClass;
@@ -189,26 +190,25 @@ late AdditionaClassCubit _additional;
 
   _loadAdditionalclass() async {
     // _recorderCubit.getBatchs(jsonEncode(BatchRequest(widget.studentId,widget.crhId,widget.jlptlevel)));
-    _additional.getAdditonalClass1(jsonEncode(
-        AdditionalClassRequest(widget.batchId)));
+    _additional
+        .getAdditonalClass1(jsonEncode(AdditionalClassRequest(widget.batchId)));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:   AppBar(
-        backgroundColor: Colors.red,
-        centerTitle: true,
-        // automaticallyImplyLeading: false,
-        //  leading: Icon(Icons.drag_handle),
-        title: AppIcon(
-          icon: AppIcons.hayakawa_red_white,
-          size: Insets.xxl * 2.5,
-          color: AppColors.PrimaryColor,
+        appBar: AppBar(
+          backgroundColor: AppColors.appPrimaryColor,
+          centerTitle: true,
+          // automaticallyImplyLeading: false,
+          //  leading: Icon(Icons.drag_handle),
+          title: AppIcon(
+            icon: AppIcons.hayakawa_red_white,
+            size: Insets.xxl * 2.5,
+            color: AppColors.PrimaryColor,
+          ),
         ),
-      ),
-  
-    body:BlocConsumer<AdditionaClassCubit, AdditionalState>(
+        body: BlocConsumer<AdditionaClassCubit, AdditionalState>(
             bloc: _additional,
             builder: (context, state) {
               if (state is AdditionalLoading) {
@@ -223,7 +223,7 @@ late AdditionaClassCubit _additional;
               if (state is AdditionalClassLoaded) {
                 if (state.additionalClass.result == "success") {
                   classList = state.additionalClass.cassresult?.classList;
-                  _adittionalClass= state.additionalClass.cassresult;
+                  _adittionalClass = state.additionalClass.cassresult;
                   if (classList!.isNotEmpty) {
                     return _VideoUI();
                   } else {
@@ -243,87 +243,78 @@ late AdditionaClassCubit _additional;
               }
               return const CircularProgressIndicator();
             },
-            listener: (conttext, state) {
-              
-            }));
+            listener: (conttext, state) {}));
   }
 
-   Widget _VideoUI(){
+  Widget _VideoUI() {
     return Scaffold(
-      body: Column(
-        children: [
-           VSpace.med,
-       textStyle(text: 'SENSEI : ${_adittionalClass?.teacherName}'),
-           Expanded(
-             child: ListView.builder(
-                 itemCount: classList!.length,
-                  itemBuilder: (context, index) {
-                   print("###################### ${classList?.length}");
-                   return GestureDetector(
-             onTap: (){
-             
-               Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) => VideoPlayers(classID: '${classList![index].id}')));
-                     },
-                     child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: DecoratedContainer(
-                clipFCorner: true,
-               child: Padding(  
-                 padding:  EdgeInsets.symmetric(vertical: Insets.lg,horizontal: Insets.lg),
-                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    textStyle(text: 'Class ${classList![index].className}'),
-                    Icon(Icons.arrow_forward_ios)
-                  ],
-                 ),
-               ),
-              ),
-                     ),
-                   );
-                  }
-                   ),
-           ),
-        ],
-      )
+        body: Column(
+      children: [
+        VSpace.med,
+        textStyle(text: 'SENSEI : ${_adittionalClass?.teacherName}'),
+        Expanded(
+          child: ListView.builder(
+              itemCount: classList!.length,
+              itemBuilder: (context, index) {
+                print("###################### ${classList?.length}");
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => VideoPlayers(
+                                classID: '${classList![index].id}')));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: DecoratedContainer(
+                      clipFCorner: true,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: Insets.lg, horizontal: Insets.lg),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            textStyle(
+                                text: 'Class ${classList![index].className}'),
+                            Icon(Icons.arrow_forward_ios)
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                 );
+              }),
+        ),
+      ],
+    ));
   }
 }
 
-
 class VideoPlayers extends StatefulWidget {
-
- String classID;
+  String classID;
 //  String videoUrl;
-   VideoPlayers({super.key,required this.classID});
+  VideoPlayers({super.key, required this.classID});
 
   @override
   State<VideoPlayers> createState() => _VideoPlayersState();
 }
 
 class _VideoPlayersState extends State<VideoPlayers> {
+  late AdditionaClassCubit _additionaClassCubit;
+  AdditonalClassVideo? _videoModel;
 
-late AdditionaClassCubit _additionaClassCubit;
-AdditonalClassVideo? _videoModel;
-
-  
 // late YoutubePlayerController _controller;
-@override
+  @override
   void initState() {
     super.initState();
     _additionaClassCubit = getItInstance<AdditionaClassCubit>();
     _loadRecorderclass();
-   // videoUrl = _videoModel!.videoUrl!;
-  
-  
+    // videoUrl = _videoModel!.videoUrl!;
   }
 
-
- _loadRecorderclass() async {
-     _additionaClassCubit.getVideo(jsonEncode(VideoRequest(widget. classID)));
+  _loadRecorderclass() async {
+    _additionaClassCubit.getVideo(jsonEncode(VideoRequest(widget.classID)));
     //  await loadVideo();
   }
 
@@ -342,11 +333,9 @@ AdditonalClassVideo? _videoModel;
   //   );
   // }
 
-
-
   @override
   Widget build(BuildContext context) {
-     return BlocConsumer<AdditionaClassCubit, AdditionalState>(
+    return BlocConsumer<AdditionaClassCubit, AdditionalState>(
         bloc: _additionaClassCubit,
         builder: (context, state) {
           if (state is AdditionalLoading) {
@@ -360,18 +349,16 @@ AdditonalClassVideo? _videoModel;
 
           if (state is AdditionaVideoLoaded) {
             if (state.videoModel.result == "success") {
-             _videoModel = state.videoModel;
-              if(_videoModel?.data?.videoUrl != ""){
-                return MyWidgetVideo(Url:_videoModel!.data!.videoUrl!);
-              }else{
+              _videoModel = state.videoModel;
+              if (_videoModel?.data?.videoUrl != "") {
+                return MyWidgetVideo(Url: _videoModel!.data!.videoUrl!);
+              } else {
                 return Center(child: Text(''));
               }
             }
-            
+
             if (state.videoModel.result == "error") {
-              
-                return Center(child: Text(''));
-              
+              return Center(child: Text(''));
             } else {
               Future.delayed(Duration.zero, () async {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -384,10 +371,9 @@ AdditonalClassVideo? _videoModel;
         },
         listener: (conttext, state) {
           if (state is AdditionaVideoLoaded) {
-          if (state.videoModel.result == "success") {
+            if (state.videoModel.result == "success") {
               _videoModel = state.videoModel;
               print("Helooooooooooooooooooooo");
-             
             }
           }
         });

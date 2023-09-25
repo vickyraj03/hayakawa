@@ -1,28 +1,19 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hayakawa_new/config/data/perferences.dart';
 import 'package:hayakawa_new/config/get_it/get_instances.dart';
-import 'package:hayakawa_new/config/request/request.dart';
 import 'package:hayakawa_new/cubit/login/login_cubit.dart';
 import 'package:hayakawa_new/cubit/login/login_state.dart';
 import 'package:hayakawa_new/models/login_model/login_model.dart';
 import 'package:hayakawa_new/screens/dashboard_screen/classes/class_screen.dart';
-import 'package:hayakawa_new/screens/dashboard_screen/dash_board.dart';
 import 'package:hayakawa_new/screens/login_screen/sign_up_page.dart';
 import 'package:hayakawa_new/widgets/Error_text/error_text.dart';
-import 'package:hayakawa_new/widgets/animation.dart';
 import 'package:hayakawa_new/widgets/appIcon.dart';
 import 'package:hayakawa_new/widgets/dialogs.dart';
 import 'package:hayakawa_new/widgets/style/app_color.dart';
 import 'package:hayakawa_new/widgets/style/font_size.dart';
 import 'package:hayakawa_new/widgets/style/style_insets.dart';
 import 'package:hayakawa_new/widgets/style/style_space.dart';
-import 'package:hayakawa_new/widgets/style/text_style.dart';
 
 import 'forgot_password.dart';
 
@@ -65,12 +56,7 @@ class _MyWidgetState extends State<MyWidget> {
       valid = false;
       emailError = "Email / Mobile No can't be blank!";
     }
-    // if (!emailController.text.trim().contains("@")) {
-    //  // if (!emailController.text.contains(EmailValidator.regex)) {
-    //     valid = false;
-    //     emailError = "Enter valid EmailID!";
-    //  // }
-    // } else
+
     if (!emailController.text.toString().contains("@")) {
       String patttern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
       // String patttern =r'(?:[+0]9)?[0-9]{10}$';
@@ -87,8 +73,8 @@ class _MyWidgetState extends State<MyWidget> {
     }
     return valid;
   }
-  
-   showErrorDialog(BuildContext context,
+
+  showErrorDialog(BuildContext context,
       {String? message, String? dtitle, String? lableOk}) {
     // set up the AlertDialog
     final BaseStyledDialog alert = BaseStyledDialog(
@@ -96,20 +82,7 @@ class _MyWidgetState extends State<MyWidget> {
       content: '\n$message',
       action: lableOk ?? 'Ok',
     );
-    /*   CupertinoAlertDialog(
-      title: const Text('Verification Code Resend'),
-      content: Text('\n$message'),
-      actions: <Widget>[
-        CupertinoDialogAction(
-          isDefaultAction: true,
-          child: const Text('Ok'),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        )
-      ],
-    );*/
-    // show the dialog
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -118,6 +91,71 @@ class _MyWidgetState extends State<MyWidget> {
     );
   }
 
+  Future<void> alertDlg(BuildContext context, String message) async =>
+      //Product add to cart
+
+      showDialog<void>(
+          context: context,
+          builder: (BuildContext context) {
+            var alertDialog = Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(Consts.padding),
+              ),
+              elevation: 0.0,
+              backgroundColor: Colors.transparent,
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: Insets.lg, vertical: Insets.lg),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(Consts.padding),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 10.0,
+                      //  offset: const Offset(0.0, 10.0),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/png/Hayakawa.png',
+                      width: Insets.xxl * 2,
+                      height: Insets.xxl * 2,
+                    ),
+                    VSpace(Insets.lg + Insets.med),
+                    Text(
+                      message,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    VSpace(Insets.med),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                AppColors.appPrimaryColor // Background color
+                            ),
+                        onPressed: () {
+                          // Navigator.of(context);
+                          Navigator.of(context).pop(); // To close the dialog
+                        },
+                        child: Text('OK'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+            return alertDialog;
+          });
 
   @override
   void initState() {
@@ -131,6 +169,12 @@ class _MyWidgetState extends State<MyWidget> {
       emailController.text = "";
       passwordController.text = "";
     });
+  }
+
+  @override
+  void didUpdateWidget(MyWidget oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _valid();
   }
 
   _getLogin() async {
@@ -152,7 +196,6 @@ class _MyWidgetState extends State<MyWidget> {
     return Scaffold(body: buildLoginState());
   }
 
-
   Widget buildLoginState() {
     return BlocConsumer<LoginCubit, LoginState>(
         bloc: _loginCubit,
@@ -171,33 +214,22 @@ class _MyWidgetState extends State<MyWidget> {
               logindata = state.logindata.data;
               Preferences.setUserValidate(true);
               Preferences.setUserid(logindata!.studentId!);
-            
-              // Preferences.setUserName(logindata!.name!);
-              // Preferences.setUserEmail(logindata!.username!);
               Future.delayed(Duration.zero, () async {
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
                     builder: (BuildContext context) {
                       return ClassesScreen(
-                        //loginData: logindata!,
-                      );
+                          //loginData: logindata!,
+                          );
                     },
                   ),
                   (_) => false,
                 );
               });
             } else {
-                Future.delayed(Duration.zero, () async {
-                   showErrorDialog(context,
-                lableOk:  'Ok',
-                dtitle: 'Login',
-                message: "${state.logindata.message}");
-                });
-              // Future.delayed(Duration.zero, () async {
-              //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              //     content: Text("${state.logindata.message}"),
-              //   ));
-              // });
+              Future.delayed(Duration.zero, () async {
+                alertDlg(context, "${state.logindata.message}");
+              });
             }
           }
           return buildLoginUI();
@@ -206,226 +238,116 @@ class _MyWidgetState extends State<MyWidget> {
   }
 
   Widget buildLoginUI() {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              colors: [Colors.red[900]!, Colors.red[800]!, Colors.red[400]!])),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          VSpace.xl,
-          Center(
-            child: AppIcon(
-              icon: AppIcons.hayakawa,
-              size: Insets.xxl * 4,
-              color: AppColors.PrimaryColor,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: Insets.xl, vertical: Insets.med),
-            child: Column(
-              children: const <Widget>[
-                Center(
-                  child: Text(
-                    "Login",
-                    style: TextStyle(color: Colors.white, fontSize: 40),
-                  ),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.appPrimaryColor,
+        centerTitle: true,
+        // automaticallyImplyLeading: false,
+        //  leading: Icon(Icons.drag_handle),
+        title: AppIcon(
+          icon: AppIcons.hayakawa_red_white,
+          size: Insets.xxl * 2.5,
+          color: AppColors.PrimaryColor,
+        ),
+      ),
+      body: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        child: Padding(
+          padding: EdgeInsets.all(Insets.xl),
+          child: Column(
+            children: <Widget>[
+              VSpace.xl,
+              Container(
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: const [
+                      BoxShadow(
+                          color: Color.fromRGBO(223, 8, 19, 0.29),
+                          blurRadius: 20,
+                          offset: Offset(0, 10))
+                    ]),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      //   padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(color: Colors.grey[200]!))),
+                      child: EmailField(
+                        emailController: emailController,
+                        emailError:
+                            emailController.text.isEmpty ? emailError : "",
+                        focusNode: nodeOne,
+                      ),
+                    ),
+                    Container(
+                      //  padding: EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                          border: Border(
+                              bottom: BorderSide(color: Colors.grey[200]!))),
+                      child: PasswordField(
+                        passwordController: passwordController,
+                        obscureText: _obscureText,
+                        passwordError: passwordController.text.isEmpty
+                            ? passwordError
+                            : "",
+                        togglePassword: _togglePassword,
+                        focusNode: nodeTwo,
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                Center(
-                  child: Text(
-                    "Welcome Back",
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                )
-              ],
-            ),
-          ),
-          VSpace.med,
-          Expanded(
-            child: Container(
-              decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(60),
-                      topRight: Radius.circular(60))),
-              child: SingleChildScrollView(
-                physics: NeverScrollableScrollPhysics(),
-                child: Padding(
-                  padding: EdgeInsets.all(Insets.xl),
-                  child: Column(
-                    children: <Widget>[
-                      VSpace.xl,
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: const [
-                              BoxShadow(
-                                  color: Color.fromRGBO(223, 8, 19, 0.29),
-                                  blurRadius: 20,
-                                  offset: Offset(0, 10))
-                            ]),
-                        child: Column(
-                          children: <Widget>[
-                            Container(
-                              //   padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  border: Border(
-                                      bottom: BorderSide(
-                                          color: Colors.grey[200]!))),
-                              child: EmailField(
-                                emailController: emailController,
-                                emailError: emailError,
-                                focusNode: nodeOne,
-                              ),
-                            ),
-                            Container(
-                              //  padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  border: Border(
-                                      bottom: BorderSide(
-                                          color: Colors.grey[200]!))),
-                              child: PasswordField(
-                                passwordController: passwordController,
-                                obscureText: _obscureText,
-                                passwordError: passwordError,
-                                togglePassword: _togglePassword,
-                                focusNode: nodeTwo,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      VSpace.lg,
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ForgotPassword()),
-                            );
-                          },
-                          child: Text(
-                            "Forgot Password?",
-                            style: TextStyle(color: Colors.blue),
-                            textAlign: TextAlign.end,
-                          ),
-                        ),
-                      ),
-                      VSpace(Insets.xl),
-                      GestureDetector(
-                        onTap: () {
-                          //_getLogin();
-                          setState(() {
-                            if (_valid()) {
-                              _getLogin();
-                            } else {
-                              _valid();
-                            }
-                          });
-                        },
-                        child: Container(
-                          height: 50,
-                          margin: EdgeInsets.symmetric(horizontal: 50),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              color: Colors.red[900]),
-                          child: const Center(
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                      ),
-                      VSpace.lg,
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.center,
-                      //   children: [
-                      //     FittedBox(
-                      //       child: textStyle(
-                      //           text: '${"Didn't have an account? "}',
-                      //           style: TextStyles.subTitle2),
-                      //     ),
-                      //     GestureDetector(
-                      //       onTap: () {
-                      //         Navigator.push(
-                      //           context,
-                      //           MaterialPageRoute(
-                      //               builder: (context) => SignUp()),
-                      //         );
-                      //       },
-                      //       child: textStyle(
-                      //           text: '${'Sign Up'}',
-                      //           style: TextStyles.subTitle2.copyWith(
-                      //               fontWeight: FontWeight.bold,
-                      //               color: Colors.blue)),
-                      //     ),
-                      //   ],
-                      // ),
-                      // Container(
-                      //   height: 50,
-                      //   margin: EdgeInsets.symmetric(horizontal: 50),
-                      //   decoration: BoxDecoration(
-                      //       borderRadius: BorderRadius.circular(50),
-                      //       color: Colors.red[900]),
-                      //   child: const Center(
-                      //     child: Text(
-                      //       "Login",
-                      //       style: TextStyle(
-                      //           color: Colors.white,
-                      //           fontWeight: FontWeight.bold),
-                      //     ),
-                      //   ),
-                      // ),
-                      // // FadeAnimation(1.7, Text("Continue with social media", style: TextStyle(color: Colors.grey),)),
-                      // SizedBox(height: 30,),
-                      // Row(
-                      //   children: <Widget>[
-                      //     Expanded(
-                      //       child: FadeAnimation(1.8, Container(
-                      //         height: 50,
-                      //         decoration: BoxDecoration(
-                      //           borderRadius: BorderRadius.circular(50),
-                      //           color: Colors.blue
-                      //         ),
-                      //         child: Center(
-                      //           child: Text("Facebook", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-                      //         ),
-                      //       )),
-                      //     ),
-                      //     SizedBox(width: 30,),
-                      //     Expanded(
-                      //       child: FadeAnimation(1.9, Container(
-                      //         height: 50,
-                      //         decoration: BoxDecoration(
-                      //           borderRadius: BorderRadius.circular(50),
-                      //           color: Colors.black
-                      //         ),
-                      //         child: Center(
-                      //           child: Text("Github", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
-                      //         ),
-                      //       )),
-                      //     )
-                      //   ],
-                      // )
-                    ],
+              ),
+              VSpace.lg,
+              Align(
+                alignment: Alignment.centerRight,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ForgotPassword()),
+                    );
+                  },
+                  child: const Text(
+                    "Forgot Password?",
+                    style: TextStyle(color: Colors.blue),
+                    textAlign: TextAlign.end,
                   ),
                 ),
               ),
-            ),
-          )
-        ],
+              VSpace(Insets.xl),
+              GestureDetector(
+                onTap: () {
+                  //_getLogin();
+                  setState(() {
+                    if (_valid()) {
+                      _getLogin();
+                    } else {
+                      _valid();
+                    }
+                  });
+                },
+                child: Container(
+                  height: 50,
+                  margin: EdgeInsets.symmetric(horizontal: 50),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: AppColors.appPrimaryColor),
+                  child: const Center(
+                    child: Text(
+                      "Login",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+              ),
+              VSpace.lg,
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -451,23 +373,23 @@ class PasswordField extends StatefulWidget {
 class _PasswordFieldState extends State<PasswordField> {
   @override
   Widget build(BuildContext context) {
-    return new Theme(
-        data: new ThemeData(
+    return Theme(
+        data: ThemeData(
           primaryColor: Theme.of(context).primaryColor,
         ),
         // textSelectionColor: Theme.of(context).primaryColor),
-        child: new TextField(
+        child: TextField(
             focusNode: widget.focusNode,
             autofocus: true,
             controller: widget.passwordController,
             obscureText: true,
-            decoration: new InputDecoration(
-              prefixIcon: Icon(
+            decoration: InputDecoration(
+              prefixIcon: const Icon(
                 Icons.lock,
-                color: Colors.red,
+                color: AppColors.appPrimaryColor,
               ),
               hintText: "Password",
-              hintStyle: TextStyle(color: Colors.grey),
+              hintStyle: TextStyle(color: Colors.grey, fontSize: FontSizes.s10),
               border: InputBorder.none,
               errorText: widget.passwordError,
             )));
@@ -496,13 +418,98 @@ class EmailField extends StatelessWidget {
             keyboardType: TextInputType.emailAddress,
             controller: emailController,
             decoration: new InputDecoration(
-                hintStyle: TextStyle(color: Colors.grey),
+                hintStyle:
+                    TextStyle(color: Colors.grey, fontSize: FontSizes.s10),
                 border: InputBorder.none,
-                prefixIcon: Icon(
-                  Icons.account_circle,
-                  color: Colors.red,
-                ),
-                hintText: "Email / Mobile No",
+                prefixIcon: Icon(Icons.account_circle,
+                    color: AppColors.appPrimaryColor),
+                hintText: "Email / Mobile No Without Couuntry Code",
                 errorText: emailError)));
+  }
+}
+
+class WelcomeScreen extends StatefulWidget {
+  const WelcomeScreen({super.key});
+
+  @override
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(begin: Alignment.topCenter, colors: [
+          AppColors.appPrimaryColor,
+          Colors.red[800]!,
+          Colors.red[400]!
+        ])),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            VSpace.xl,
+            Center(
+              child: AppIcon(
+                icon: AppIcons.hayakawa,
+                size: Insets.xxl * 6,
+                color: AppColors.PrimaryColor,
+              ),
+            ),
+            VSpace.med,
+            Expanded(
+              child: Container(
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(60),
+                        topRight: Radius.circular(60))),
+                child: SingleChildScrollView(
+                  physics: NeverScrollableScrollPhysics(),
+                  child: Padding(
+                    padding: EdgeInsets.all(Insets.xl),
+                    child: Column(
+                      children: <Widget>[
+                        VSpace.xl,
+                        VSpace.lg,
+                        VSpace(Insets.xl),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MyWidget()),
+                            );
+                          },
+                          child: Container(
+                            height: 50,
+                            margin: EdgeInsets.symmetric(horizontal: 50),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: AppColors.appPrimaryColor),
+                            child: const Center(
+                              child: Text(
+                                "Login",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ),
+                        VSpace.lg,
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+    ;
   }
 }

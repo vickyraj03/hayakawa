@@ -60,12 +60,13 @@ class Repository {
   }
 
   Future<dynamic> profilefetch(dynamic map) async {
-    final profiledata = await networkService!.postFromdata(profile_endpoint, map);
+    final profiledata =
+        await networkService!.postFromdata(profile_endpoint, map);
     profileModel profileres = profileModel.fromJson(profiledata);
     return profileres;
   }
 
-   Future<dynamic> batchfetch(dynamic map) async {
+  Future<dynamic> batchfetch(dynamic map) async {
     final batchdata = await networkService!.post(batches_endpoint, map);
     recorderModel batchres = recorderModel.fromJson(batchdata);
     return batchres;
@@ -77,32 +78,32 @@ class Repository {
     return classres;
   }
 
-
-
   Future<dynamic> videofetch(dynamic map) async {
     final videodata = await networkService!.post(video_endpoint, map);
     VideoModel videores = VideoModel.fromJson(videodata);
     return videores;
   }
 
-
-    Future<dynamic> additionalfetch(dynamic map) async {
-    final additionaldata = await networkService!.post(additional_video_endpoint, map);
+  Future<dynamic> additionalfetch(dynamic map) async {
+    final additionaldata =
+        await networkService!.post(additional_video_endpoint, map);
     AdditionalClass additionalres = AdditionalClass.fromJson(additionaldata);
     return additionalres;
   }
 
-
-
-   Future<dynamic> additionaclassfetch(dynamic map) async {
-    final additionaldata = await networkService!.post(additional_class_endpoint, map);
-    AdditonalClass1 additionalclassres = AdditonalClass1.fromJson(additionaldata);
+  Future<dynamic> additionaclassfetch(dynamic map) async {
+    final additionaldata =
+        await networkService!.post(additional_class_endpoint, map);
+    AdditonalClass1 additionalclassres =
+        AdditonalClass1.fromJson(additionaldata);
     return additionalclassres;
   }
 
-   Future<dynamic> additionavideofetch(dynamic map) async {
-    final additionaldata = await networkService!.post(additional_class_video_endpoint, map);
-    AdditonalClassVideo additionalclassvideores = AdditonalClassVideo.fromJson(additionaldata);
+  Future<dynamic> additionavideofetch(dynamic map) async {
+    final additionaldata =
+        await networkService!.post(additional_class_video_endpoint, map);
+    AdditonalClassVideo additionalclassvideores =
+        AdditonalClassVideo.fromJson(additionaldata);
     return additionalclassvideores;
   }
 }

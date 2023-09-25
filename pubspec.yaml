@@ -2,7 +2,7 @@ name: hayakawa_new
 description: A new Flutter project.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+# publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -37,11 +37,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   shared_preferences: ^2.0.18
   get_it: ^7.2.0
-  firebase_core: ^2.7.1
+  # firebase_core: ^2.16.0
   cached_network_image: ^3.2.3
-  flutter_native_splash: ^2.2.19
+  flutter_native_splash: ^2.3.2
   flutter_bloc: ^8.1.2
-  connectivity_plus: ^3.0.3
+  connectivity_plus: ^4.0.2
   shimmer: ^2.0.0
   url_launcher: ^6.1.10
   image_picker:
@@ -49,10 +49,12 @@ dependencies:
   flutter_svg: ^2.0.2
   country_list_pick: ^1.0.1+6
   flutter_profile_picture: ^2.0.0
+  youtube_player_iframe: ^4.0.4
   webview_flutter: ^4.2.0
   youtube_player_flutter: ^8.1.0
   video_player: ^2.4.7
   visibility_detector: ^0.4.0+2
+  flutter_inappwebview: ^5.7.2+3
   
 
   
@@ -76,6 +78,7 @@ flutter:
   assets:
   - assets/img/
   - assets/svg/
+  - assets/png/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

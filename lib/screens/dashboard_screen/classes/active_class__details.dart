@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hayakawa_new/config/data/perferences.dart';
@@ -13,18 +12,14 @@ import 'package:hayakawa_new/widgets/style/font_size.dart';
 import 'package:hayakawa_new/widgets/style/style_insets.dart';
 import 'package:hayakawa_new/widgets/style/style_space.dart';
 import 'package:hayakawa_new/widgets/style/text_style.dart';
-import 'package:hayakawa_new/screens/dashboard_screen/classes/checking,dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hayakawa_new/screens/dashboard_screen/classes/Live_video.dart';
-
 import 'package:http/http.dart' as http;
-
 import 'dart:convert' as JSON;
-
 import 'package:url_launcher/url_launcher.dart';
 
 List<LiveDetails> classDetailButton = const <LiveDetails>[
-  LiveDetails(title: 'Live', icon: "assets/img/live.jpg"),
+  LiveDetails(title: 'Live', icon: "assets/svg/INTERACTIVE.svg"),
   LiveDetails(title: 'Youtube', icon: "assets/img/youtube.jpg"),
 ];
 
@@ -60,10 +55,8 @@ class _ActiveClassDetailsState extends State<ActiveClassDetails> {
   // VideoPlayerController _controller;
   var msgg;
 
-  final List<LiveDetails> classDetailButtonList = [
-];
+  final List<LiveDetails> classDetailButtonList = [];
   _fetchInitstate() async {
-   
     print('---test----');
     // print(classDetailButton.length);
 
@@ -80,7 +73,7 @@ class _ActiveClassDetailsState extends State<ActiveClassDetails> {
         if (widget.activeClassResult.tblCourse!.progType == "Interactive") {
           classDetailButtonList.add(
             LiveDetails(
-                title: 'Interactive', icon: "assets/svg/INTERACTIVE.svg"),
+                title: 'Interactive', icon: "assets/svg/interactive_new.svg"),
           );
         }
 
@@ -201,7 +194,8 @@ class _ActiveClassDetailsState extends State<ActiveClassDetails> {
       // If the server did return a 200 OK response,
       // then parse the JSON.
       final jsonDecoded = JSON.jsonDecode(response.body);
-      final results =Response(data: jsonDecoded, status: ServiceStatus.success);
+      final results =
+          Response(data: jsonDecoded, status: ServiceStatus.success);
       final loginResult = interactivemodel.fromJson(results.data);
       debugPrint('Api${jsonDecoded}');
       print(loginResult.message);
@@ -220,155 +214,109 @@ class _ActiveClassDetailsState extends State<ActiveClassDetails> {
         msgg = msg1[1].trim();
         print("Hey        ${msgg}");
       });
-      // _showAlert(
-      //   context,
-      //   batch_header,
-      // );
-Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      IntractiveClass(interactive: loginResult,)));
 
-      //alertDlgInter(context, batch_header.toString());
-      // _alertMsg(context, batch_message);
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => IntractiveClass(
+                    interactive: loginResult,
+                  )));
       return results;
-
-      // return checkmodel.fromJson(jsonDecode(response.body));
     } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
       throw Exception('Failed to load album');
     }
   }
 
- 
-
-  alertDlgInter(BuildContext context, String message) async =>
-      //Product add to cart
-
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            var alertDialog = Dialog(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(Consts.padding),
+  alertDlgInter(BuildContext context, String message) async => showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        var alertDialog = Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(Consts.padding),
+          ),
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: Stack(
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.only(
+                  top: Consts.avatarRadius + Consts.padding,
+                  bottom: Consts.padding,
+                  left: Consts.padding,
+                  right: Consts.padding,
+                ),
+                margin: EdgeInsets.only(top: Consts.avatarRadius),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(Consts.padding),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 10.0,
+                      offset: Offset(0.0, 10.0),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment:
+                      CrossAxisAlignment.start, // To make the card compact
+                  children: <Widget>[
+                    Text(
+                      "${batch_message}",
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                          fontSize: 16.0, fontWeight: FontWeight.w500),
+                    ),
+                    SizedBox(height: 24.0),
+                  ],
+                ),
               ),
-              elevation: 0.0,
-              backgroundColor: Colors.transparent,
-              child: Stack(
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.only(
-                      top: Consts.avatarRadius + Consts.padding,
-                      bottom: Consts.padding,
-                      left: Consts.padding,
-                      right: Consts.padding,
+              Positioned(
+                  top: 45,
+                  left: 10,
+                  right: 10,
+                  child: Material(
+                    elevation: 0.0,
+                    shape: CircleBorder(),
+                    clipBehavior: Clip.hardEdge,
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 20.0),
+                      child: SvgPicture.asset(
+                        'assets/svg/hayakawa_new.svg',
+                        color: AppColors.appPrimaryColor,
+                      ),
                     ),
-                    margin: EdgeInsets.only(top: Consts.avatarRadius),
-                    decoration: new BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(Consts.padding),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black26,
-                          blurRadius: 10.0,
-                          offset: const Offset(0.0, 10.0),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment:CrossAxisAlignment.start, // To make the card compact
-                      children: <Widget>[
-                        Text(
-                          "${batch_message}",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              fontSize: 16.0, fontWeight: FontWeight.w500),
-                        ),
-                        
-                        SizedBox(height: 24.0),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        //   children: <Widget>[
-                        //     Align(
-                        //         alignment: Alignment.bottomCenter,
-                        //         child: IconButton(
-                        //           icon: Image.asset(
-                        //             "assets/img/Zoom_logo.png",
-                        //           ),
-                        //           iconSize: 60,
-                        //           onPressed: () {
-                        //             _lun();
-                        //           },
-                        //         )
-                        //         // ElevatedButton(
-                        //         //   onPressed: () {
-                        //         //     Navigator.of(context)
-                        //         //         .pop(); // To close the dialog
-                        //         //   },
-                        //         //   child: Text('Proceed Later'),
-                        //         // ),
-                        //         ),
-                        //     Align(
-                        //         alignment: Alignment.bottomRight,
-                        //         child: IconButton(
-                        //           icon: Image.asset(
-                        //             "assets/img/google-classroom.jpg",
-                        //           ),
-                        //           iconSize: 100,
-                        //           onPressed: () {
-                        //             _Glink();
-                        //           },
-                        //         )
-                        //         // ElevatedButton(
-                        //         //   onPressed: () {},
-                        //         //   child: Text('Proceed Now'),
-                        //         // ),
-                        //         ),
-                        //   ],
-                        // ),
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                      top: 45,
-                      left: 10,
-                      right: 10,
-                      child: Material(
-                        elevation: 0.0,
-                        shape: CircleBorder(),
-                        clipBehavior: Clip.hardEdge,
-                        color: Colors.white,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 20.0),
-                          child:  SvgPicture.asset(
-                              'assets/svg/Hayakawa_new_logo.svg',
-                              color: Colors.red[900],
-                            ),
-                        ),
-                      )),
-                ],
-              ),
-            );
-            return alertDialog;
-          });
+                  )),
+            ],
+          ),
+        );
+        return alertDialog;
+      });
 
   @override
   Widget build(BuildContext context) {
     classDetailButtonList.clear();
-    widget.activeClassResult.tblCourse!.progType == "Interactive" && widget.activeClassResult.batch!.status == "2"? classDetailButtonList.add( LiveDetails(title: 'Interactive', icon: "assets/svg/INTERACTIVE.svg"),):"";
-    classDetailButtonList.add( LiveDetails(title: 'Live', icon: "assets/svg/LIVE.svg"),);
-    classDetailButtonList.add(  LiveDetails(title: 'Recorded', icon: "assets/svg/RECORDED.svg"),);
+    widget.activeClassResult.tblCourse!.progType == "Interactive" &&
+            widget.activeClassResult.batch!.status == "2"
+        ? classDetailButtonList.add(
+            const LiveDetails(
+                title: 'Interactive', icon: "assets/png/Interactive.png"),
+          )
+        : "";
+    classDetailButtonList.add(
+      LiveDetails(title: 'Live', icon: "assets/png/live-removebg.png"),
+    );
+    classDetailButtonList.add(
+      LiveDetails(title: 'Recorded', icon: "assets/png/recoder1.png"),
+    );
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red[900],
+        backgroundColor: AppColors.appPrimaryColor,
         centerTitle: true,
-        // automaticallyImplyLeading: false,
-        //  leading: Icon(Icons.drag_handle),
         title: AppIcon(
           icon: AppIcons.hayakawa_red_white,
           size: Insets.xxl * 2.5,
@@ -391,7 +339,7 @@ Navigator.push(
                         width: double.infinity,
                         padding: EdgeInsets.symmetric(
                             horizontal: Insets.xs, vertical: Insets.sm),
-                        color: Colors.red[900],
+                        color: AppColors.appPrimaryColor,
                         //   clipFCorner: true,
                         child: Column(
                           children: [
@@ -424,14 +372,14 @@ Navigator.push(
                                     .copyWith(fontWeight: FontWeight.bold),
                               )),
                           Expanded(
-                             flex: 2,
+                              flex: 2,
                               child: textStyle(
-                            text:
-                                widget.activeClassResult.tblCourse!.courseType!,
-                            style: TextStyles.body2
-                                .copyWith(color: AppColors.kTextThird),
-                            textAlign: TextAlign.right,
-                          )),
+                                text: widget
+                                    .activeClassResult.tblCourse!.courseType!,
+                                style: TextStyles.body2
+                                    .copyWith(color: AppColors.kTextThird),
+                                textAlign: TextAlign.right,
+                              )),
                         ],
                       ),
                     ),
@@ -450,13 +398,14 @@ Navigator.push(
                                     .copyWith(fontWeight: FontWeight.bold),
                               )),
                           Expanded(
-                             flex: 2,
+                              flex: 2,
                               child: textStyle(
-                            text: widget.activeClassResult.tblCourse!.progType!,
-                            style: TextStyles.body2
-                                .copyWith(color: AppColors.kTextThird),
-                            textAlign: TextAlign.right,
-                          )),
+                                text: widget
+                                    .activeClassResult.tblCourse!.progType!,
+                                style: TextStyles.body2
+                                    .copyWith(color: AppColors.kTextThird),
+                                textAlign: TextAlign.right,
+                              )),
                         ],
                       ),
                     ),
@@ -475,14 +424,14 @@ Navigator.push(
                                     .copyWith(fontWeight: FontWeight.bold),
                               )),
                           Expanded(
-                             flex: 2,
+                              flex: 2,
                               child: textStyle(
-                            text: widget
-                                .activeClassResult.tblCourse!.courseDuration!,
-                            style: TextStyles.body2
-                                .copyWith(color: AppColors.kTextThird),
-                            textAlign: TextAlign.right,
-                          )),
+                                text: widget.activeClassResult.tblCourse!
+                                    .courseDuration!,
+                                style: TextStyles.body2
+                                    .copyWith(color: AppColors.kTextThird),
+                                textAlign: TextAlign.right,
+                              )),
                         ],
                       ),
                     ),
@@ -501,14 +450,14 @@ Navigator.push(
                                     .copyWith(fontWeight: FontWeight.bold),
                               )),
                           Expanded(
-                             flex: 2,
+                              flex: 2,
                               child: textStyle(
-                            text: widget.activeClassResult.others!.startDate
-                                .toString(),
-                            style: TextStyles.body2
-                                .copyWith(color: AppColors.kTextThird),
-                            textAlign: TextAlign.right,
-                          )),
+                                text: widget.activeClassResult.others!.startDate
+                                    .toString(),
+                                style: TextStyles.body2
+                                    .copyWith(color: AppColors.kTextThird),
+                                textAlign: TextAlign.right,
+                              )),
                         ],
                       ),
                     ),
@@ -527,14 +476,14 @@ Navigator.push(
                                     .copyWith(fontWeight: FontWeight.bold),
                               )),
                           Expanded(
-                             flex: 2,
+                              flex: 2,
                               child: textStyle(
-                            text: widget.activeClassResult.others!.endDate
-                                .toString(),
-                            style: TextStyles.body2
-                                .copyWith(color: AppColors.kTextThird),
-                            textAlign: TextAlign.right,
-                          )),
+                                text: widget.activeClassResult.others!.endDate
+                                    .toString(),
+                                style: TextStyles.body2
+                                    .copyWith(color: AppColors.kTextThird),
+                                textAlign: TextAlign.right,
+                              )),
                         ],
                       ),
                     ),
@@ -553,13 +502,13 @@ Navigator.push(
                                     .copyWith(fontWeight: FontWeight.bold),
                               )),
                           Expanded(
-                             flex: 2,
+                              flex: 2,
                               child: textStyle(
-                            text: widget.activeClassResult.batch!.timing!,
-                            style: TextStyles.body2
-                                .copyWith(color: AppColors.kTextThird),
-                            textAlign: TextAlign.right,
-                          )),
+                                text: widget.activeClassResult.batch!.timing!,
+                                style: TextStyles.body2
+                                    .copyWith(color: AppColors.kTextThird),
+                                textAlign: TextAlign.right,
+                              )),
                         ],
                       ),
                     ),
@@ -599,8 +548,9 @@ Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (BuildContext context) =>
-                                          MyWidgetVideo(Url:widget.activeClassResult
-                                              .tblCourse!.videoLink!)))
+                                          MyWidgetVideo(
+                                              Url: widget.activeClassResult
+                                                  .tblCourse!.videoLink!)))
                               : widget.activeClassResult.tblCourse!.videoLink ==
                                           "" &&
                                       widget.activeClassResult.tblCourse!
@@ -624,8 +574,14 @@ Navigator.push(
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      Recorder(studentId:Preferences.getUserid().toString(),crhId: "${widget.activeClassResult.courseHistory?.crhId}",jlptlevel: "${widget.activeClassResult.tblCourse?.jlptlevel}",)));
+                                  builder: (BuildContext context) => Recorder(
+                                        studentId:
+                                            Preferences.getUserid().toString(),
+                                        crhId:
+                                            "${widget.activeClassResult.courseHistory?.crhId}",
+                                        jlptlevel:
+                                            "${widget.activeClassResult.tblCourse?.jlptlevel}",
+                                      )));
                         }
                         break;
                     }
@@ -637,12 +593,12 @@ Navigator.push(
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(10.0),
-                        child: SvgPicture.asset(
+                        child: Image.asset(
                           classDetailButtonList[index].icon,
                           fit: BoxFit.contain,
-                          height: Insets.xl,
-                          width: Insets.xl,
-                           color: Colors.red,
+                          height: Insets.xxl,
+                          width: Insets.xxl,
+                          // color: Color(0xFFB71C1C),
                           //SizeConfig.screenHeight! * 0.08,
                         ),
                       ),
@@ -662,33 +618,6 @@ Navigator.push(
                       )
                     ],
                   ),
-                  // height: 250.0,
-                  //  color: Colors.white,
-                  //margin: new EdgeInsets.all(1.0),
-
-                  // child:  Center(
-                  //   child: Card(
-                  //       elevation: 3,
-                  //       color: Colors.white,
-                  //       child: Center(
-                  //         child: Column(
-                  //             mainAxisAlignment:
-                  //                 MainAxisAlignment
-                  //                     .spaceEvenly,
-                  //             //  mainAxisSize: MainAxisSize.min,
-                  //             crossAxisAlignment:
-                  //                 CrossAxisAlignment
-                  //                     .center,
-                  //             children: <Widget>[
-                  //               Image.asset(
-                  //                   classDetailButtonList[
-                  //                           index]
-                  //                       .icon,
-                  //                   height: 70.0,
-                  //                   width: 70.0),
-                  //             ]),
-                  //       )),
-                  // ),
                 );
               }).toList(),
             ),
@@ -740,9 +669,6 @@ Navigator.push(
   }
 }
 
-
-
-
 class LiveDetails {
   const LiveDetails({required this.title, required this.icon});
   // final Widget page;
@@ -791,25 +717,21 @@ class interactivemodel {
       };
 }
 
-
-
-
-
 class IntractiveClass extends StatefulWidget {
-   IntractiveClass({super.key, required this.interactive});
-   interactivemodel interactive;
+  IntractiveClass({super.key, required this.interactive});
+  interactivemodel interactive;
 
   @override
   State<IntractiveClass> createState() => _IntractiveClassState();
 }
 
 class _IntractiveClassState extends State<IntractiveClass> {
- var _url;
+  var _url;
   var zoom_url, g_url;
   var msg1, mesg;
-    var msgg;
+  var msgg;
 
- Future<void> _lun() async {
+  Future<void> _lun() async {
     final Uri url = Uri.parse("$msgg");
     if (!await launchUrl(url)) {
       throw 'Could not launch $_url';
@@ -827,7 +749,7 @@ class _IntractiveClassState extends State<IntractiveClass> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red,
+        backgroundColor: AppColors.appPrimaryColor,
         centerTitle: true,
         // automaticallyImplyLeading: false,
         //  leading: Icon(Icons.drag_handle),
@@ -838,69 +760,59 @@ class _IntractiveClassState extends State<IntractiveClass> {
         ),
       ),
       body: Padding(
-        padding:  EdgeInsets.all(20),
+        padding: EdgeInsets.all(20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment:CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             VSpace.lg,
-      Text(
-                            "${widget.interactive.batch_message}",
-                            textAlign: TextAlign.start,
-                            
-                            style: TextStyle(
-                                fontSize: 16.0, fontWeight: FontWeight.w500),
-                          ),
-      
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: IconButton(
-                                    icon: Image.asset(
-                                      "assets/img/Zoom_logo.png",
-                                    ),
-                                    iconSize: 60,
-                                    onPressed: () async{
-                                      final Uri url = Uri.parse(widget.interactive.zoomUrl);
-    if (!await launchUrl(url)) {
-      throw 'Could not launch ${widget.interactive.zoomUrl}';
-    }
-                                     // _lun();
-                                    },
-                                  )
-                                  // ElevatedButton(
-                                  //   onPressed: () {
-                                  //     Navigator.of(context)
-                                  //         .pop(); // To close the dialog
-                                  //   },
-                                  //   child: Text('Proceed Later'),
-                                  // ),
-                                  ),
-                              Align(
-                                  alignment: Alignment.bottomRight,
-                                  child: IconButton(
-                                    icon: Image.asset(
-                                      "assets/img/google-classroom.jpg",
-                                    ),
-                                    iconSize: 100,
-                                    onPressed: () async{
-                                      final Uri url = Uri.parse(widget.interactive.googleClassroom);
-    if (!await launchUrl(url)) {
-      throw 'Could not launch ${widget.interactive.googleClassroom}';
-    }
-                                     // _Glink();
-                                    },
-                                  )
-                                  // ElevatedButton(
-                                  //   onPressed: () {},
-                                  //   child: Text('Proceed Now'),
-                                  // ),
-                                  ),
-                            ],
-                          ),
+            Text(
+              "${widget.interactive.batch_message}",
+              textAlign: TextAlign.start,
+              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Align(
+                    alignment: Alignment.bottomCenter,
+                    child: IconButton(
+                      icon: Image.asset(
+                        "assets/img/Zoom_logo.png",
+                      ),
+                      iconSize: 60,
+                      onPressed: () async {
+                        final Uri url = Uri.parse(widget.interactive.zoomUrl);
+                        if (!await launchUrl(url)) {
+                          throw 'Could not launch ${widget.interactive.zoomUrl}';
+                        }
+                        // _lun();
+                      },
+                    )),
+                Align(
+                    alignment: Alignment.bottomRight,
+                    child: IconButton(
+                      icon: Image.asset(
+                        "assets/png/googleclassroom.png",
+                      ),
+                      iconSize: Insets.xxl * 3,
+                      onPressed: () async {
+                        final Uri url =
+                            Uri.parse(widget.interactive.googleClassroom);
+                        if (!await launchUrl(url)) {
+                          throw 'Could not launch ${widget.interactive.googleClassroom}';
+                        }
+                        // _Glink();
+                      },
+                    )
+                    // ElevatedButton(
+                    //   onPressed: () {},
+                    //   child: Text('Proceed Now'),
+                    // ),
+                    ),
+              ],
+            ),
           ],
         ),
       ),

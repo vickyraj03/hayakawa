@@ -116,33 +116,35 @@ class _DashboardScreenState extends State<DashboardScreen> {
           padding: EdgeInsets.zero,
           children: [
             UserAccountsDrawerHeader(
-              decoration: BoxDecoration(color: Colors.red),
-              accountName: Text(
-                profileData!.name!, // Preferences.getUserName().toString(),
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+                decoration: BoxDecoration(color: Colors.red),
+                accountName: Text(
+                  profileData!.name!, // Preferences.getUserName().toString(),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              accountEmail: Text(
-                profileData!.email!, // Preferences.getUserEmail().toString(),
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+                accountEmail: Text(
+                  profileData!.email!, // Preferences.getUserEmail().toString(),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              currentAccountPicture: Cachednetworkimage(imgurl: profileData!.pictures,)
-    //           currentAccountPicture: CachedNetworkImage(
-    //     imageUrl: "http://via.placeholder.com/350x150",
-    //     placeholder: (context, url) => CircularProgressIndicator(),
-    //     errorWidget: (context, url, error) => Icon(Icons.error),
-    //  ),
-            //   currentAccountPicture: ProfilePicture(
-            //  //   img: profileData!.photos!,
-            //     name: profileData!.name!, //Preferences.getUserName().toString(),
-            //     radius: Insets.xl * 2,
-            //     fontsize: 21,
-            //     random: false,
-            //   ),
-                          ),
+                currentAccountPicture: Cachednetworkimage(
+                  imgurl: profileData!.pictures,
+                )
+                //           currentAccountPicture: CachedNetworkImage(
+                //     imageUrl: "http://via.placeholder.com/350x150",
+                //     placeholder: (context, url) => CircularProgressIndicator(),
+                //     errorWidget: (context, url, error) => Icon(Icons.error),
+                //  ),
+                //   currentAccountPicture: ProfilePicture(
+                //  //   img: profileData!.photos!,
+                //     name: profileData!.name!, //Preferences.getUserName().toString(),
+                //     radius: Insets.xl * 2,
+                //     fontsize: 21,
+                //     random: false,
+                //   ),
+                ),
             ListTile(
               leading: Icon(
                 Icons.home,
@@ -164,10 +166,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ListTile(
               leading: AppIcon(icon: AppIcons.Hayakawa_new_logo),
               title: const Text('Logout'),
-              onTap:  ()  {
-                      alertDlg(
-                                  context, 'Do you want to Logout? ?');
-                    },
+              onTap: () {
+                alertDlg(context, 'Do you want to Logout?');
+              },
             ),
           ],
         ),
@@ -211,23 +212,23 @@ Widget CardItemlatest1(Iconspojo item) {
       mainAxisSize: MainAxisSize.max,
       children: [
         Padding(
-          padding: const EdgeInsets.all(10.0),
-          child:SvgPicture.asset(
-      item.image,
-      width: Insets.xxl,
-      height: Insets.xxl,
-      color:Colors.red,
-    )
-          
-          // child: Image.asset(
-          //   item.image,
-          //   fit: BoxFit.contain,
-          //   height: Insets.xxl,
-          //   width: Insets.xxl,
-          //   //  color: AppColors.PrimaryColor,
-          //   //SizeConfig.screenHeight! * 0.08,
-          // ),
-        ),
+            padding: const EdgeInsets.all(10.0),
+            child: SvgPicture.asset(
+              item.image,
+              width: Insets.xxl,
+              height: Insets.xxl,
+              color: Colors.red,
+            )
+
+            // child: Image.asset(
+            //   item.image,
+            //   fit: BoxFit.contain,
+            //   height: Insets.xxl,
+            //   width: Insets.xxl,
+            //   //  color: AppColors.PrimaryColor,
+            //   //SizeConfig.screenHeight! * 0.08,
+            // ),
+            ),
         SizedBox(
           height: 1,
         ),
@@ -245,8 +246,6 @@ Widget CardItemlatest1(Iconspojo item) {
       ],
     ),
   );
-
-  
 }
 
 Future<void> alertDlg(BuildContext context, String message) async =>
@@ -261,83 +260,160 @@ Future<void> alertDlg(BuildContext context, String message) async =>
             ),
             elevation: 0.0,
             backgroundColor: Colors.transparent,
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.only(
-                    top: Consts.avatarRadius + Consts.padding,
-                    bottom: Consts.padding,
-                    left: Consts.padding,
-                    right: Consts.padding,
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                  horizontal: Insets.lg, vertical: Insets.lg),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(Consts.padding),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 10.0,
+                    //  offset: const Offset(0.0, 10.0),
                   ),
-                  margin: EdgeInsets.only(top: Consts.avatarRadius),
-                  decoration: new BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(Consts.padding),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        blurRadius: 10.0,
-                        offset: const Offset(0.0, 10.0),
-                      ),
-                    ],
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Image.asset(
+                    'assets/png/Hayakawa.png',
+                    width: Insets.xxl * 2,
+                    height: Insets.xxl * 2,
                   ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min, // To make the card compact
-                    children: <Widget>[
-                      Text(
-                        message,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 16.0,
-                        ),
-                      ),
-                      SizedBox(height: 24.0),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: ElevatedButton(
-                          onPressed:  () async {
-                      final pref = await SharedPreferences.getInstance();
-                      await pref.clear();
-                      Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return MyWidget();
-                          },
-                        ),
-                        (_) => false,
-                      );
-                    },
-                          child: Text('OK'),
-                        ),
-                      ),
-                    ],
+                  VSpace(Insets.lg + Insets.med),
+                  Text(
+                    message,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 16.0,
+                    ),
                   ),
-                ),
-                Positioned(
-                    top: 45,
-                    left: 10,
-                    right: 10,
-                    child: Material(
-                      elevation: 0.0,
-                      shape: CircleBorder(),
-                      clipBehavior: Clip.hardEdge,
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 20.0),
-                        child: Ink.image(
-                          image: AssetImage(
-                            'assets/img/logo.png',
+                  VSpace(Insets.med),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              AppColors.appPrimaryColor // Background color
                           ),
-                          fit: BoxFit.contain,
-                          // width: 90.0,
-                          height: 90.0,
-                        ),
-                      ),
-                    )),
-              ],
+                      onPressed: () async {
+                        final pref = await SharedPreferences.getInstance();
+                        await pref.clear();
+                        Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              return MyWidget();
+                            },
+                          ),
+                          (_) => false,
+                        );
+                      },
+                      child: Text('OK'),
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
           return alertDialog;
         });
+    // showDialog<void>(
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       var alertDialog = Dialog(
+    //         shape: RoundedRectangleBorder(
+    //           borderRadius: BorderRadius.circular(Consts.padding),
+    //         ),
+    //         elevation: 0.0,
+    //         backgroundColor: Colors.transparent,
+    //         child: Stack(
+    //           children: <Widget>[
+    //             Container(
+    //               padding: const EdgeInsets.only(
+    //                 top: Consts.avatarRadius + Consts.padding,
+    //                 bottom: Consts.padding,
+    //                 left: Consts.padding,
+    //                 right: Consts.padding,
+    //               ),
+    //               margin: const EdgeInsets.only(top: Consts.avatarRadius),
+    //               decoration: BoxDecoration(
+    //                 color: Colors.white,
+    //                 shape: BoxShape.rectangle,
+    //                 borderRadius: BorderRadius.circular(Consts.padding),
+    //                 boxShadow: const [
+    //                   BoxShadow(
+    //                     color: Colors.black26,
+    //                     blurRadius: 10.0,
+    //                     offset: Offset(0.0, 10.0),
+    //                   ),
+    //                 ],
+    //               ),
+    //               child: Column(
+    //                 mainAxisSize: MainAxisSize.min, // To make the card compact
+    //                 children: <Widget>[
+    //                   Text(
+    //                     message,
+    //                     textAlign: TextAlign.center,
+    //                     style: TextStyle(
+    //                       fontSize: 16.0,
+    //                     ),
+    //                   ),
+    //                   SizedBox(height: 24.0),
+    //                   Align(
+    //                     alignment: Alignment.bottomRight,
+    //                     child: ElevatedButton(
+    //                       onPressed: () async {
+    //                         final pref = await SharedPreferences.getInstance();
+    //                         await pref.clear();
+    //                         Navigator.of(context).pushAndRemoveUntil(
+    //                           MaterialPageRoute(
+    //                             builder: (BuildContext context) {
+    //                               return MyWidget();
+    //                             },
+    //                           ),
+    //                           (_) => false,
+    //                         );
+    //                       },
+    //                       child: Text('OK'),
+    //                     ),
+    //                   ),
+    //                 ],
+    //               ),
+    //             ),
+    //             Positioned(
+    //                 top: 45,
+    //                 left: 15,
+    //                 right: 10,
+    //                 child: Material(
+    //                   elevation: 0.0,
+    //                   shape: CircleBorder(),
+    //                   clipBehavior: Clip.hardEdge,
+    //                   // color: Colors.white,
+    //                   child: Padding(
+    //                     padding: const EdgeInsets.only(top: 20.0),
+    //                     child: AppIcon(
+    //                       icon: AppIcons.hayakawa_red_white,
+    //                       color: AppColors.appPrimaryColor,
+    //                       size: 90,
+    //                     ),
+    //                     // child: Ink.image(
+    //                     //   image: AssetImage(
+    //                     //     'assets/svg/hayakawa_red_white.svg',
+    //                     //   ),
+    //                     //   fit: BoxFit.contain,
+    //                     //   // width: 90.0,
+    //                     //   height: 90.0,
+    //                     // ),
+    //                   ),
+    //                 )),
+    //           ],
+    //         ),
+    //       );
+    //       return alertDialog;
+    //     }
+        
+    //     );

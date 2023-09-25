@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -61,17 +59,19 @@ class _ActiveClassState extends State<ActiveClass> {
           if (state is ActiveClassLoaded) {
             if (state.activeClass.result == "success") {
               _activeClassResult = state.activeClass.data!;
-              if(_activeClassResult!.isNotEmpty){
+              if (_activeClassResult!.isNotEmpty) {
                 return ActiveClassUI();
-              }else{
-                return Center(child: Text(state.activeClass.data1.toString()));
+              } else {
+                return Center(
+                  child: textStyle(
+                      text: "You don't have any active subscription!"),
+                );
+                // return Center(child: Text(state.activeClass.data1.toString()));
               }
             }
-            
+
             if (state.activeClass.result == "error") {
-              
-                return Center(child: Text(state.activeClass.data1.toString()));
-              
+              return Center(child: Text(state.activeClass.data1.toString()));
             } else {
               Future.delayed(Duration.zero, () async {
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -84,9 +84,8 @@ class _ActiveClassState extends State<ActiveClass> {
         },
         listener: (conttext, state) {
           if (state is ActiveClassLoaded) {
-          if (state.activeClass.result == "success") {
+            if (state.activeClass.result == "success") {
               _activeClassResult = state.activeClass.data!;
-             
             }
           }
         });
@@ -99,204 +98,209 @@ class _ActiveClassState extends State<ActiveClass> {
         TblCourse _tablcourse = _activeClassResult![index].tblCourse!;
         Batch _batch = _activeClassResult![index].batch!;
         Others _others = _activeClassResult![index].others!;
-        return  _activeClassResult != null? GestureDetector(
-          onTap: (){
-            Navigator.push(context, MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return ActiveClassDetails(activeClassResult: _activeClassResult![index],);
-                          },
-                        ));
-          },
-          child: Padding(
-            padding:
-                EdgeInsets.symmetric(horizontal: Insets.xs, vertical: Insets.sm),
-            child: IntrinsicHeight(
-              child: DecoratedContainer(
-                clipFCorner: true,
-                child: Column(
-                  children: [
-                    DecoratedContainer(
-                        width: double.infinity,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: Insets.xs, vertical: Insets.sm),
-                        color: Colors.red[900],
-                        //   clipFCorner: true,
-                        child: Column(
-                          children: [
-                            textStyle(
-                              text: _tablcourse.courseName!,
-                              style: TextStyles.body1
-                                  .copyWith(color: AppColors.PrimaryColor),
+        return _activeClassResult != null
+            ? GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return ActiveClassDetails(
+                        activeClassResult: _activeClassResult![index],
+                      );
+                    },
+                  ));
+                },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Insets.xs, vertical: Insets.sm),
+                  child: IntrinsicHeight(
+                    child: DecoratedContainer(
+                      clipFCorner: true,
+                      child: Column(
+                        children: [
+                          DecoratedContainer(
+                              width: double.infinity,
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Insets.xs, vertical: Insets.sm),
+                              color: AppColors.appPrimaryColor,
+                              //   clipFCorner: true,
+                              child: Column(
+                                children: [
+                                  textStyle(
+                                    text: _tablcourse.courseName!,
+                                    style: TextStyles.body1.copyWith(
+                                        color: AppColors.PrimaryColor),
+                                  ),
+                                  VSpace.xs,
+                                  textStyle(
+                                    text: _batch.batchName!,
+                                    style: TextStyles.body1.copyWith(
+                                        color: AppColors.PrimaryColor),
+                                  ),
+                                ],
+                              )),
+                          VSpace.xs,
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: Insets.lg, vertical: Insets.xs),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Expanded(
+                                    flex: 2,
+                                    child: textStyle(
+                                      text: 'Course Type',
+                                      style: TextStyles.subTitle2.copyWith(
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                Expanded(
+                                    flex: 2,
+                                    child: textStyle(
+                                      text: _tablcourse.courseType!,
+                                      style: TextStyles.body2.copyWith(
+                                          color: AppColors.kTextThird),
+                                      textAlign: TextAlign.right,
+                                    )),
+                              ],
                             ),
-                            VSpace.xs,
-                            textStyle(
-                              text: _batch.batchName!,
-                              style: TextStyles.body1
-                                  .copyWith(color: AppColors.PrimaryColor),
+                          ),
+                          VSpace.xs,
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: Insets.lg, vertical: Insets.xs),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Expanded(
+                                    flex: 2,
+                                    child: textStyle(
+                                      text: 'Program Type',
+                                      style: TextStyles.subTitle2.copyWith(
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                Expanded(
+                                    flex: 2,
+                                    child: textStyle(
+                                      text: _tablcourse.progType!,
+                                      style: TextStyles.body2.copyWith(
+                                          color: AppColors.kTextThird),
+                                      textAlign: TextAlign.right,
+                                    )),
+                              ],
                             ),
-                          ],
-                        )),
-                    VSpace.xs,
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: Insets.lg, vertical: Insets.xs),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Expanded(
-                              flex: 2,
-                              child: textStyle(
-                                text: 'Course Type',
-                                style: TextStyles.subTitle2
-                                    .copyWith(fontWeight: FontWeight.bold),
-                              )),
-                          Expanded(
-                             flex: 2,
-                              child: textStyle(
-                            text: _tablcourse.courseType!,
-                            style: TextStyles.body2
-                                .copyWith(color: AppColors.kTextThird),
-                            textAlign: TextAlign.right,
-                          )),
+                          ),
+                          VSpace.xs,
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: Insets.lg, vertical: Insets.xs),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Expanded(
+                                    flex: 2,
+                                    child: textStyle(
+                                      text: 'Duration',
+                                      style: TextStyles.subTitle2.copyWith(
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                Expanded(
+                                    flex: 2,
+                                    child: textStyle(
+                                      text: _tablcourse.courseDuration!,
+                                      style: TextStyles.body2.copyWith(
+                                          color: AppColors.kTextThird),
+                                      textAlign: TextAlign.right,
+                                    )),
+                              ],
+                            ),
+                          ),
+                          VSpace.xs,
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: Insets.lg, vertical: Insets.xs),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Expanded(
+                                    flex: 2,
+                                    child: textStyle(
+                                      text: 'Starts',
+                                      style: TextStyles.subTitle2.copyWith(
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                Expanded(
+                                    flex: 2,
+                                    child: textStyle(
+                                      text: _others.startDate.toString(),
+                                      style: TextStyles.body2.copyWith(
+                                          color: AppColors.kTextThird),
+                                      textAlign: TextAlign.right,
+                                    )),
+                              ],
+                            ),
+                          ),
+                          VSpace.xs,
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: Insets.lg, vertical: Insets.xs),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Expanded(
+                                    flex: 2,
+                                    child: textStyle(
+                                      text: 'Ends',
+                                      style: TextStyles.subTitle2.copyWith(
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                Expanded(
+                                    flex: 2,
+                                    child: textStyle(
+                                      text: _others.endDate.toString(),
+                                      style: TextStyles.body2.copyWith(
+                                          color: AppColors.kTextThird),
+                                      textAlign: TextAlign.right,
+                                    )),
+                              ],
+                            ),
+                          ),
+                          VSpace.xs,
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: Insets.lg, vertical: Insets.xs),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Expanded(
+                                    flex: 2,
+                                    child: textStyle(
+                                      text: 'Time',
+                                      style: TextStyles.subTitle2.copyWith(
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                Expanded(
+                                    flex: 2,
+                                    child: textStyle(
+                                      text: _batch.timing!,
+                                      style: TextStyles.body2.copyWith(
+                                          color: AppColors.kTextThird),
+                                      textAlign: TextAlign.right,
+                                    )),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                    VSpace.xs,
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: Insets.lg, vertical: Insets.xs),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Expanded(
-                              flex: 2,
-                              child: textStyle(
-                                text: 'Program Type',
-                                style: TextStyles.subTitle2
-                                    .copyWith(fontWeight: FontWeight.bold),
-                              )),
-                          Expanded(
-                             flex: 2,
-                              child: textStyle(
-                            text: _tablcourse.progType!,
-                            style: TextStyles.body2
-                                .copyWith(color: AppColors.kTextThird),
-                            textAlign: TextAlign.right,
-                          )),
-                        ],
-                      ),
-                    ),
-                    VSpace.xs,
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: Insets.lg, vertical: Insets.xs),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Expanded(
-                              flex: 2,
-                              child: textStyle(
-                                text: 'Duration',
-                                style: TextStyles.subTitle2
-                                    .copyWith(fontWeight: FontWeight.bold),
-                              )),
-                          Expanded(
-                             flex: 2,
-                              child: textStyle(
-                            text: _tablcourse.courseDuration!,
-                            style: TextStyles.body2
-                                .copyWith(color: AppColors.kTextThird),
-                            textAlign: TextAlign.right,
-                          )),
-                        ],
-                      ),
-                    ),
-                    VSpace.xs,
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: Insets.lg, vertical: Insets.xs),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Expanded(
-                              flex: 2,
-                              child: textStyle(
-                                text: 'Starts',
-                                style: TextStyles.subTitle2
-                                    .copyWith(fontWeight: FontWeight.bold),
-                              )),
-                          Expanded(
-                             flex: 2,
-                              child: textStyle(
-                            text: _others.startDate.toString(),
-                            style: TextStyles.body2
-                                .copyWith(color: AppColors.kTextThird),
-                            textAlign: TextAlign.right,
-                          )),
-                        ],
-                      ),
-                    ),
-                    VSpace.xs,
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: Insets.lg, vertical: Insets.xs),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Expanded(
-                              flex: 2,
-                              child: textStyle(
-                                text: 'Ends',
-                                style: TextStyles.subTitle2
-                                    .copyWith(fontWeight: FontWeight.bold),
-                              )),
-                          Expanded(
-                             flex: 2,
-                              child: textStyle(
-                            text: _others.endDate.toString(),
-                            style: TextStyles.body2
-                                .copyWith(color: AppColors.kTextThird),
-                            textAlign: TextAlign.right,
-                          )),
-                        ],
-                      ),
-                    ),
-                    VSpace.xs,
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: Insets.lg, vertical: Insets.xs),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Expanded(
-                              flex: 2,
-                              child: textStyle(
-                                text: 'Time',
-                                style: TextStyles.subTitle2
-                                    .copyWith(fontWeight: FontWeight.bold),
-                              )),
-                          Expanded(
-                             flex: 2,
-                              child: textStyle(
-                            text: _batch.timing!,
-                            style: TextStyles.body2
-                                .copyWith(color: AppColors.kTextThird),
-                            textAlign: TextAlign.right,
-                          )),
-                        ],
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-          ),
-        ): Center(
-          child: Padding(
-              padding: EdgeInsets.only(bottom: Insets.sm, left: Insets.sm),
-              child: textStyle(text: 'No Active Class', style: TextStyles.h2),
-            ),
-        );
+              )
+            : Center(
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: Insets.sm, left: Insets.sm),
+                  child:
+                      textStyle(text: 'No Active Class', style: TextStyles.h2),
+                ),
+              );
       },
     );
   }

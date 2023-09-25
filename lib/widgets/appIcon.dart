@@ -8,7 +8,10 @@ enum AppIcons {
   INTERACTIVE,
   LIVE,
   RECORDED,
-  Hayakawa_new_logo
+  Hayakawa_new_logo,
+  interactive_new,
+  hayakawa_new,
+  googleclassroom
 }
 
 class AppIcon extends StatelessWidget {

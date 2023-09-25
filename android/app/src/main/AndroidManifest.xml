@@ -2,7 +2,7 @@
     package="com.example.hayakawa_new">
      <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="hayakawa_new"
+        android:label="Hayakawa"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

@@ -89,10 +89,8 @@ class _ClassesScreenState extends State<ClassesScreen> {
   Widget _class() {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red[900],
+        backgroundColor: AppColors.appPrimaryColor,
         centerTitle: true,
-        // automaticallyImplyLeading: false,
-        //  leading: Icon(Icons.drag_handle),
         title: AppIcon(
           icon: AppIcons.hayakawa_red_white,
           size: Insets.xxl * 2.5,
@@ -101,20 +99,17 @@ class _ClassesScreenState extends State<ClassesScreen> {
       ),
       drawer: Drawer(
           child: Column(
-        // mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             flex: 4,
             child: ListView(
-              // Important: Remove any padding from the ListView.
               padding: EdgeInsets.zero,
               children: [
                 UserAccountsDrawerHeader(
-                    decoration: BoxDecoration(color: Colors.red[900]),
+                    decoration: BoxDecoration(color: AppColors.appPrimaryColor),
                     accountName: Text(
-                      profileData!
-                          .name!, // Preferences.getUserName().toString(),
+                      profileData!.name!,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -136,7 +131,7 @@ class _ClassesScreenState extends State<ClassesScreen> {
                     style: TextStyles.body1,
                   ),
                   onTap: () {
-                    alertDlg(context, 'Do you want to Logout??');
+                    alertDlg(context, 'Do you want to Logout?');
                   },
                 ),
               ],

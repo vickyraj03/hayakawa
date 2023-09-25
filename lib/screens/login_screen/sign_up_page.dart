@@ -1,26 +1,18 @@
 import 'dart:convert';
-
-import 'package:country_list_pick/country_list_pick.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hayakawa_new/config/data/perferences.dart';
 import 'package:hayakawa_new/config/get_it/get_instances.dart';
 import 'package:hayakawa_new/config/request/request.dart';
 import 'package:hayakawa_new/cubit/register/register_cubit.dart';
 import 'package:hayakawa_new/cubit/register/register_state.dart';
-import 'package:hayakawa_new/models/country/country_model.dart';
 import 'package:hayakawa_new/screens/dashboard_screen/dash_board.dart';
 import 'package:hayakawa_new/widgets/Error_text/error_text.dart';
 import 'package:hayakawa_new/models/rigister/register_model.dart';
-import 'package:hayakawa_new/widgets/animation.dart';
 import 'package:hayakawa_new/widgets/appIcon.dart';
 import 'package:hayakawa_new/widgets/style/app_color.dart';
-import 'package:hayakawa_new/widgets/style/font_size.dart';
 import 'package:hayakawa_new/widgets/style/style_insets.dart';
 import 'package:hayakawa_new/widgets/style/style_space.dart';
-import 'package:hayakawa_new/widgets/style/text_style.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -64,7 +56,7 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.red[900]!,
+          backgroundColor: AppColors.appPrimaryColor!,
           elevation: 0,
           centerTitle: true,
           title: AppIcon(
@@ -384,7 +376,7 @@ class _SignUpState extends State<SignUp> {
                           margin: const EdgeInsets.symmetric(horizontal: 50),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(50),
-                              color: Colors.red[900]),
+                              color: AppColors.appPrimaryColor),
                           child: const Center(
                             child: Text(
                               "Sign Up",
@@ -429,74 +421,55 @@ Future<void> alertDlg(BuildContext context, String message) async =>
             ),
             elevation: 0.0,
             backgroundColor: Colors.transparent,
-            child: Stack(
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.only(
-                    top: Consts.avatarRadius + Consts.padding,
-                    bottom: Consts.padding,
-                    left: Consts.padding,
-                    right: Consts.padding,
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                  horizontal: Insets.lg, vertical: Insets.lg),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(Consts.padding),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 10.0,
+                    //  offset: const Offset(0.0, 10.0),
                   ),
-                  margin: EdgeInsets.only(top: Consts.avatarRadius),
-                  decoration: new BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.rectangle,
-                    borderRadius: BorderRadius.circular(Consts.padding),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black26,
-                        blurRadius: 10.0,
-                        offset: const Offset(0.0, 10.0),
-                      ),
-                    ],
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Image.asset(
+                    'assets/png/Hayakawa.png',
+                    width: Insets.xxl * 2,
+                    height: Insets.xxl * 2,
                   ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min, // To make the card compact
-                    children: <Widget>[
-                      Text(
-                        message,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 16.0,
-                        ),
-                      ),
-                      SizedBox(height: 24.0),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            // Navigator.of(context);
-                            Navigator.of(context).pop(); // To close the dialog
-                          },
-                          child: Text('OK'),
-                        ),
-                      ),
-                    ],
+                  VSpace(Insets.lg + Insets.med),
+                  Text(
+                    message,
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontSize: 16.0,
+                    ),
                   ),
-                ),
-                Positioned(
-                    top: 45,
-                    left: 10,
-                    right: 10,
-                    child: Material(
-                      elevation: 0.0,
-                      shape: CircleBorder(),
-                      clipBehavior: Clip.hardEdge,
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 20.0),
-                        child: Ink.image(
-                          image: AssetImage(
-                            'assets/img/logo.png',
+                  VSpace(Insets.med),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              AppColors.appPrimaryColor // Background color
                           ),
-                          fit: BoxFit.contain,
-                          // width: 90.0,
-                          height: 90.0,
-                        ),
-                      ),
-                    )),
-              ],
+                      onPressed: () {
+                        // Navigator.of(context);
+                        Navigator.of(context).pop(); // To close the dialog
+                      },
+                      child: Text('OK'),
+                    ),
+                  ),
+                ],
+              ),
             ),
           );
           return alertDialog;

@@ -1,12 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:hayakawa_new/config/data/perferences.dart';
-
 import 'package:hayakawa_new/screens/dashboard_screen/classes/class_screen.dart';
-
 import 'package:hayakawa_new/screens/login_screen/login_screen.dart';
-
 import 'config/get_it/get_instances.dart' as getIt;
 
 void main() async {
@@ -29,8 +25,8 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: Preferences.getUserValidate() == true 
-            ? ClassesScreen()
-            : MyWidget());
+            ? const  ClassesScreen()
+            : const  WelcomeScreen());
   }
 }
 
@@ -76,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ), 
     );
   }
 }

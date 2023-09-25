@@ -1,13 +1,10 @@
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hayakawa_new/config/get_it/get_instances.dart';
 import 'package:hayakawa_new/config/request/request.dart';
 import 'package:hayakawa_new/cubit/register/register_cubit.dart';
 import 'package:hayakawa_new/cubit/register/register_state.dart';
-import 'package:hayakawa_new/models/login_model/login_model.dart';
 import 'package:hayakawa_new/screens/login_screen/login_screen.dart';
 import 'package:hayakawa_new/screens/login_screen/sign_up_page.dart';
 import 'package:hayakawa_new/widgets/Error_text/error_text.dart';
@@ -47,6 +44,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     super.initState();
   }
 
+ 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(body: registerState());
@@ -71,9 +70,10 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               _show = true;
             } else {
               Future.delayed(Duration.zero, () async {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                  content: Text("${state.forgotPassword.message}"),
-                ));
+                alertDlg(context, state.forgotPassword.message.toString());
+                // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                //   content: Text("${state.forgotPassword.message}"),
+                // ));
               });
             }
           }
@@ -90,27 +90,24 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   }
 
   Widget forgotPasswordUI() {
-    return Form(
-      key: _formKey,
-      child: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-            gradient: LinearGradient(begin: Alignment.topCenter, colors: [
-          Colors.red[900]!,
-          Colors.red[800]!,
-          Colors.red[400]!
-        ])),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.appPrimaryColor,
+        centerTitle: true,
+        // automaticallyImplyLeading: false,
+        //  leading: Icon(Icons.drag_handle),
+        title: AppIcon(
+          icon: AppIcons.hayakawa_red_white,
+          size: Insets.xxl * 2.5,
+          color: AppColors.PrimaryColor,
+        ),
+      ),
+      body: Form(
+        key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             VSpace.xl,
-            // Center(
-            //   child: AppIcon(
-            //     icon: AppIcons.hayakawa,
-            //     size: Insets.xxl * 4,
-            //     color: AppColors.PrimaryColor,
-            //   ),
-            // ),
             VSpace.med,
             Expanded(
               child: Container(
@@ -145,9 +142,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                           bottom: BorderSide(
                                               color: Colors.grey[200]!))),
                                   child: TextFormField(
-                                    //  style: TextStyle(color: Colors.blue),
-                                    decoration: InputDecoration(
-                                      hintText: "Email or Phone number",
+                                    decoration: const InputDecoration(
+                                      hintText: "Email",
                                       hintStyle: TextStyle(color: Colors.grey),
                                       border: InputBorder.none,
                                       prefixIcon: Icon(
@@ -160,16 +156,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                         : validateEmail(val),
                                     onSaved: (val) => forPwdReg.emails = val!,
                                   ),
-                                  // child: const TextField(
-                                  //   decoration: InputDecoration(
-                                  //       prefixIcon: Icon(
-                                  //         Icons.email,
-                                  //         color: Colors.red,
-                                  //       ),
-                                  //       hintText: "Email or Phone number",
-                                  //       hintStyle: TextStyle(color: Colors.grey),
-                                  //       border: InputBorder.none),
-                                  // ),
                                 ),
                               ),
                               VSpace.lg,
@@ -177,8 +163,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                 onTap: () {
                                   final FormState? form = _formKey.currentState;
                                   if (!form!.validate()) {
-                                    alertDlg(context,
-                                        'Form is not valid!  Please review and correct');
+                                    alertDlg(context, 'Enter valid email id');
                                   } else {
                                     form.save();
                                     _getForgotPassword();
@@ -189,7 +174,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                   margin: EdgeInsets.symmetric(horizontal: 50),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(50),
-                                      color: Colors.red[900]),
+                                      color: AppColors.appPrimaryColor),
                                   child: const Center(
                                     child: Text(
                                       "Request Password",
@@ -238,7 +223,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                   margin: EdgeInsets.symmetric(horizontal: 50),
                                   decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(50),
-                                      color: Colors.red[900]),
+                                      color: AppColors.appPrimaryColor),
                                   child: const Center(
                                     child: Text(
                                       "Retrun to Login",
