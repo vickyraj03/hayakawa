@@ -423,7 +423,7 @@ class EmailField extends StatelessWidget {
                 border: InputBorder.none,
                 prefixIcon: Icon(Icons.account_circle,
                     color: AppColors.appPrimaryColor),
-                hintText: "Email / Mobile No Without Couuntry Code",
+                hintText: "Email / Mobile No Without Country Code",
                 errorText: emailError)));
   }
 }
