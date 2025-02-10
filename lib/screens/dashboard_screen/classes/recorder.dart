@@ -12,7 +12,7 @@ import 'package:hayakawa_new/models/recorder/recorder_model.dart';
 import 'package:hayakawa_new/models/recorder/video_model.dart';
 import 'package:hayakawa_new/screens/dashboard_screen/classes/Live_video.dart';
 import 'package:hayakawa_new/screens/dashboard_screen/classes/additional_class.dart';
-import 'package:hayakawa_new/screens/dashboard_screen/classes/checking,dart';
+
 import 'package:hayakawa_new/widgets/Container/new_Container.dart';
 import 'package:hayakawa_new/widgets/Error_text/error_text.dart';
 import 'package:hayakawa_new/widgets/appIcon.dart';
@@ -21,11 +21,10 @@ import 'package:hayakawa_new/widgets/style/font_size.dart';
 import 'package:hayakawa_new/widgets/style/style_insets.dart';
 import 'package:hayakawa_new/widgets/style/style_space.dart';
 import 'package:hayakawa_new/widgets/style/text_style.dart';
-import 'package:video_player/video_player.dart';
+
 // import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import '../../../config/request/request.dart';
-import '../../../cubit/active_class/active_class_cubit.dart';
 
 class Recorder extends StatefulWidget {
   String studentId;
@@ -76,11 +75,9 @@ class _RecorderState extends State<Recorder> {
           if (state is BatchLoaded) {
             if (state.batch.result == "success") {
               recorderData = state.batch.data!;
-              if (recorderData!.batchList!.isNotEmpty) {
+
                 return RecorderUI();
-              } else {
-                return Center(child: Text(''));
-              }
+
             }
 
             if (state.batch.result == "error") {
@@ -162,7 +159,7 @@ class _RecorderState extends State<Recorder> {
           color: AppColors.PrimaryColor,
         ),
       ),
-      body: Column(
+      body:recorderData!.batchList!.isNotEmpty? Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -240,7 +237,7 @@ class _RecorderState extends State<Recorder> {
                     jlptlevel: widget.jlptlevel),
               ))),
         ],
-      ),
+      ):Center(child: textStyle(text: 'No Recorder Found', style: TextStyles.body1)),
     );
   }
 

@@ -28,7 +28,7 @@ class _MyWidgetVideoState extends State<MyWidgetVideo> {
               child: IconButton(
             icon: Icon(
               Icons.arrow_back_ios,
-              color: Colors.white,
+              color: Colors.black,
             ),
             onPressed: () {
               Navigator.of(context).pop();

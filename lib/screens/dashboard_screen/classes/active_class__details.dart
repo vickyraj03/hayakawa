@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:hayakawa_new/config/data/perferences.dart';
 import 'package:hayakawa_new/models/Classs/active_class_model.dart';
 import 'package:hayakawa_new/models/dashboard_model/dashboard_model.dart';
@@ -17,6 +18,7 @@ import 'package:hayakawa_new/screens/dashboard_screen/classes/Live_video.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as JSON;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:html/parser.dart';
 
 List<LiveDetails> classDetailButton = const <LiveDetails>[
   LiveDetails(title: 'Live', icon: "assets/svg/INTERACTIVE.svg"),
@@ -187,9 +189,9 @@ class _ActiveClassDetailsState extends State<ActiveClassDetails> {
 
   _interactive() async {
     final response = await http.get(Uri.parse(
-        'https://www.hayakawa.in/app/get-interactive-message.php?batch_id=' +
+        'https://hayakawa.in/app/get-interactive-message.php?batch_id=' +
             widget.activeClassResult.batch!.id!));
-
+print("id ---------------------${widget.activeClassResult.batch!.id!}");
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
@@ -202,17 +204,18 @@ class _ActiveClassDetailsState extends State<ActiveClassDetails> {
 
       setState(() {
         batch_header = loginResult.message!;
-        batch_message = loginResult.batch_message!;
+         // batch_message = loginResult.batch_message!;
         zoom_url = loginResult.zoomUrl;
         g_url = loginResult.googleClassroom;
+      batch_message =  _parseHtmlString(loginResult.batch_message!);
 
         print("Hellooo    ${batch_message}");
-        mesg = batch_message!.split(" ");
+       /* mesg = batch_message!.split(" ");
 
         var tt = mesg[23];
         msg1 = tt.split("meeting:");
         msgg = msg1[1].trim();
-        print("Hey        ${msgg}");
+        print("Hey        ${msgg}");*/
       });
 
       Navigator.push(
@@ -225,6 +228,16 @@ class _ActiveClassDetailsState extends State<ActiveClassDetails> {
     } else {
       throw Exception('Failed to load album');
     }
+  }
+
+
+
+//here goes the function
+  String _parseHtmlString(String htmlString) {
+    final document = parse(htmlString);
+    final String parsedString = parse(document.body?.text).documentElement!.text;
+
+    return parsedString;
   }
 
   alertDlgInter(BuildContext context, String message) async => showDialog(
@@ -265,7 +278,7 @@ class _ActiveClassDetailsState extends State<ActiveClassDetails> {
                       CrossAxisAlignment.start, // To make the card compact
                   children: <Widget>[
                     Text(
-                      "${batch_message}",
+                    batch_message!,
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                           fontSize: 16.0, fontWeight: FontWeight.w500),
@@ -299,14 +312,19 @@ class _ActiveClassDetailsState extends State<ActiveClassDetails> {
 
   @override
   Widget build(BuildContext context) {
+    print("id ---------------------${widget.activeClassResult.batch!.id!}");
     classDetailButtonList.clear();
-    widget.activeClassResult.tblCourse!.progType == "Interactive" &&
-            widget.activeClassResult.batch!.status == "2"
-        ? classDetailButtonList.add(
-            const LiveDetails(
-                title: 'Interactive', icon: "assets/png/Interactive.png"),
-          )
-        : "";
+    classDetailButtonList.add(
+      const LiveDetails(
+          title: 'Interactive', icon: "assets/png/Interactive.png"),
+    );
+    // widget.activeClassResult.tblCourse!.progType == "Interactive" &&
+    //         widget.activeClassResult.batch!.status == "2"
+    //     ? classDetailButtonList.add(
+    //         const LiveDetails(
+    //             title: 'Interactive', icon: "assets/png/Interactive.png"),
+    //       )
+    //     : "";
     classDetailButtonList.add(
       LiveDetails(title: 'Live', icon: "assets/png/live-removebg.png"),
     );
@@ -517,7 +535,7 @@ class _ActiveClassDetailsState extends State<ActiveClassDetails> {
               ),
             ),
           ),
-          Container(
+          SizedBox(
             height: 400,
             child: GridView.count(
               crossAxisCount: 3,
@@ -533,7 +551,41 @@ class _ActiveClassDetailsState extends State<ActiveClassDetails> {
                     switch (classDetailButtonList[index].title) {
                       case "Interactive":
                         {
-                          _interactive();
+                          if (widget.activeClassResult.tblCourse!.progType?.toLowerCase() ==
+                                  "interactive" &&
+                              widget.activeClassResult.batch!.status == "2") {
+                            _interactive();
+                          }
+                          if (widget.activeClassResult.tblCourse!.progType?.toLowerCase() ==
+                              "interactive" &&
+                              widget.activeClassResult.batch!.status == "3") {
+                            alertDlg(context,
+                                "Batch Closed For Interactive");
+                          }else {
+                            alertDlg(context,
+                                "There is No interactive for this batch");
+                            // CupertinoAlertDialog(
+                            //   title: textStyle(
+                            //     text: "Interactive",
+                            //     textAlign: TextAlign.center,
+                            //   ), //const Text('Verification Code Resend'),
+                            //   content: textStyle(
+                            //       text:
+                            //           "There is No interactive for this batch",
+                            //       textAlign:
+                            //           TextAlign.center), //Text('\n$message'),
+                            //   actions: <Widget>[
+                            //     CupertinoDialogAction(
+                            //       isDefaultAction: true,
+                            //       child: textStyle(
+                            //           text: "OK", textAlign: TextAlign.center),
+                            //       onPressed: () {
+                            //         Navigator.of(context).pop();
+                            //       },
+                            //     )
+                            //   ],
+                            // );
+                          }
                         }
                         break;
                       case "Live":
@@ -627,6 +679,72 @@ class _ActiveClassDetailsState extends State<ActiveClassDetails> {
     );
   }
 
+  Future<void> alertDlg(BuildContext context, String message) async =>
+      //Product add to cart
+
+      showDialog<void>(
+          context: context,
+          builder: (BuildContext context) {
+            var alertDialog = Dialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(Consts.padding),
+              ),
+              elevation: 0.0,
+              backgroundColor: Colors.transparent,
+              child: Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: Insets.lg, vertical: Insets.lg),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  shape: BoxShape.rectangle,
+                  borderRadius: BorderRadius.circular(Consts.padding),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      blurRadius: 10.0,
+                      //  offset: const Offset(0.0, 10.0),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Image.asset(
+                      'assets/png/Hayakawa.png',
+                      width: Insets.xxl * 2,
+                      height: Insets.xxl * 2,
+                    ),
+                    VSpace(Insets.lg + Insets.med),
+                    Text(
+                      message,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    VSpace(Insets.med),
+                    Align(
+                      alignment: Alignment.bottomRight,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor:
+                                AppColors.appPrimaryColor // Background color
+                            ),
+                        onPressed: () {
+                          // Navigator.of(context);
+                          Navigator.of(context).pop(); // To close the dialog
+                        },
+                        child: Text('OK'),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+            return alertDialog;
+          });
+
   Widget CardItemlatest1(Iconspojo item) {
     return ColorFiltered(
       colorFilter: item.activeIcon == 1
@@ -708,13 +826,7 @@ class interactivemodel {
         googleClassroom: json["google_classroom"],
       );
 
-  Map<String, dynamic> toJson() => {
-        "result": result == null ? null : result,
-        "message": message == null ? null : message,
-        "batch_message": batch_message == null ? null : batch_message,
-        "zoom_url": zoomUrl,
-        "google_classroom": googleClassroom,
-      };
+
 }
 
 class IntractiveClass extends StatefulWidget {
@@ -744,6 +856,18 @@ class _IntractiveClassState extends State<IntractiveClass> {
       throw 'Could not launch $_url';
     }
   }
+  String _parseHtmlString(String htmlString) {
+    final document = parse(htmlString);
+    final String parsedString = parse(document.body?.text).documentElement!.text;
+    mesg = parsedString.split(" ");
+
+    var tt = mesg[2];
+    // msg1 = tt.split("meeting:");
+    // msgg = msg1[1].trim();
+    // print("Hey        ${msgg}");
+
+    return parsedString;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -761,59 +885,67 @@ class _IntractiveClassState extends State<IntractiveClass> {
       ),
       body: Padding(
         padding: EdgeInsets.all(20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            VSpace.lg,
-            Text(
-              "${widget.interactive.batch_message}",
-              textAlign: TextAlign.start,
-              style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Align(
-                    alignment: Alignment.bottomCenter,
-                    child: IconButton(
-                      icon: Image.asset(
-                        "assets/img/Zoom_logo.png",
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              VSpace.lg,
+              HtmlWidget(
+                  widget.interactive.batch_message!,
+                textStyle: TextStyle(
+                  height: 1.5
+                ),
+              ),
+  //             Text(
+  // _parseHtmlString(widget.interactive.batch_message!),
+  //               textAlign: TextAlign.center,
+  //               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.w500),
+  //             ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Align(
+                      alignment: Alignment.bottomCenter,
+                      child: IconButton(
+                        icon: Image.asset(
+                          "assets/img/Zoom_logo.png",
+                        ),
+                        iconSize: 60,
+                        onPressed: () async {
+                          final Uri url = Uri.parse(widget.interactive.zoomUrl);
+                          if (!await launchUrl(url)) {
+                            throw 'Could not launch ${widget.interactive.zoomUrl}';
+                          }
+                          // _lun();
+                        },
+                      )),
+                  Align(
+                      alignment: Alignment.bottomRight,
+                      child: IconButton(
+                        icon: Image.asset(
+                          "assets/png/googleclassroom.png",
+                        ),
+                        iconSize: Insets.xxl * 3,
+                        onPressed: () async {
+                          final Uri url =
+                              Uri.parse(widget.interactive.googleClassroom);
+                          if (!await launchUrl(url)) {
+                            throw 'Could not launch ${widget.interactive.googleClassroom}';
+                          }
+                          // _Glink();
+                        },
+                      )
+                      // ElevatedButton(
+                      //   onPressed: () {},
+                      //   child: Text('Proceed Now'),
+                      // ),
                       ),
-                      iconSize: 60,
-                      onPressed: () async {
-                        final Uri url = Uri.parse(widget.interactive.zoomUrl);
-                        if (!await launchUrl(url)) {
-                          throw 'Could not launch ${widget.interactive.zoomUrl}';
-                        }
-                        // _lun();
-                      },
-                    )),
-                Align(
-                    alignment: Alignment.bottomRight,
-                    child: IconButton(
-                      icon: Image.asset(
-                        "assets/png/googleclassroom.png",
-                      ),
-                      iconSize: Insets.xxl * 3,
-                      onPressed: () async {
-                        final Uri url =
-                            Uri.parse(widget.interactive.googleClassroom);
-                        if (!await launchUrl(url)) {
-                          throw 'Could not launch ${widget.interactive.googleClassroom}';
-                        }
-                        // _Glink();
-                      },
-                    )
-                    // ElevatedButton(
-                    //   onPressed: () {},
-                    //   child: Text('Proceed Now'),
-                    // ),
-                    ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

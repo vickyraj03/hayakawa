@@ -23,6 +23,6 @@ class BaseStyledDialog extends StatelessWidget {
         )
 
       ],
-    );;
+    );
   }
 }

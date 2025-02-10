@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hayakawa_new/models/login_model/login_model.dart';
 import 'package:hayakawa_new/models/profile/profile_model.dart';
 
 @immutable

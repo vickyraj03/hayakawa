@@ -1,8 +1,4 @@
-import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 import '../../widgets/style/app_color.dart';
 import '../../widgets/style/style_insets.dart';
@@ -36,8 +32,6 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
 
 class _CustomAppBarState extends State<CustomAppBar> {
   String? appName, packageName, version, buildNumber;
-  final Random _random = Random();
-  int _score = 10;
   Widget kBackBtn = Icon(
     Icons.arrow_back_ios,
   );

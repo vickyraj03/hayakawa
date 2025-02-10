@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hayakawa_new/models/country/country_model.dart';
-import 'package:hayakawa_new/models/login_model/login_model.dart';
 
 @immutable
 abstract class CountryState {}
@@ -13,11 +12,9 @@ class CountryLoaded extends CountryState {
   CountryLoaded({required this.countrydata});
 }
 
-class CountryLoading extends CountryState{
+class CountryLoading extends CountryState {}
 
-}
-
-class ErrorState extends CountryState{
+class ErrorState extends CountryState {
   final error;
   ErrorState({this.error});
 }

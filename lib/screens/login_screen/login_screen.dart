@@ -218,9 +218,7 @@ class _MyWidgetState extends State<MyWidget> {
                 Navigator.of(context).pushAndRemoveUntil(
                   MaterialPageRoute(
                     builder: (BuildContext context) {
-                      return ClassesScreen(
-                          //loginData: logindata!,
-                          );
+                      return ClassesScreen();
                     },
                   ),
                   (_) => false,

@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hayakawa_new/models/country/country_model.dart';
-import 'package:hayakawa_new/models/rigister/register_model.dart';
-
 import '../../models/Classs/active_class_model.dart';
-import '../../models/password_model/password_model.dart';
 
 
 @immutable

@@ -22,11 +22,12 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
+          useMaterial3: false,
           primarySwatch: Colors.blue,
         ),
-        home: Preferences.getUserValidate() == true 
-            ? const  ClassesScreen()
-            : const  WelcomeScreen());
+        home: Preferences.getUserValidate() == true
+            ? const ClassesScreen()
+            : const WelcomeScreen());
   }
 }
 
@@ -42,7 +43,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  void _incrementCounter() {  
+  void _incrementCounter() {
     setState(() {
       _counter++;
     });
@@ -72,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
-      ), 
+      ),
     );
   }
 }

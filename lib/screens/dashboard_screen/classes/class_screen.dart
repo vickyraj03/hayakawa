@@ -1,8 +1,4 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hayakawa_new/config/data/perferences.dart';
 import 'package:hayakawa_new/config/get_it/get_instances.dart';
@@ -16,7 +12,6 @@ import 'package:hayakawa_new/widgets/Container/new_Container.dart';
 import 'package:hayakawa_new/widgets/Error_text/error_text.dart';
 import 'package:hayakawa_new/widgets/appIcon.dart';
 import 'package:hayakawa_new/widgets/image/image.dart';
-import 'package:hayakawa_new/widgets/network_Connecet.dart';
 import 'package:hayakawa_new/widgets/style/app_color.dart';
 import 'package:hayakawa_new/widgets/style/font_size.dart';
 import 'package:hayakawa_new/widgets/style/style_insets.dart';
@@ -54,36 +49,33 @@ class _ClassesScreenState extends State<ClassesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return InternetConnectivity(
-      ontapRetry: () => _loadProfile(),
-      child: BlocConsumer<ProfileCubit, ProfileSate>(
-          bloc: _profile,
-          builder: (context, state) {
-            if (state is ProfileLoading) {
-              return Center(child: CircularProgressIndicator());
-            } else if (state is ErrorState) {
-              return ErrorTxt(
-                message: '${state.error}',
-                ontap: () => _loadProfile(),
-              );
-            }
+    return BlocConsumer<ProfileCubit, ProfileSate>(
+        bloc: _profile,
+        builder: (context, state) {
+          if (state is ProfileLoading) {
+            return Center(child: CircularProgressIndicator());
+          } else if (state is ErrorState) {
+            return ErrorTxt(
+              message: '${state.error}',
+              ontap: () => _loadProfile(),
+            );
+          }
 
-            if (state is ProfileLoaded) {
-              if (state.profiledata.result == "success") {
-                profileData = state.profiledata.data!;
-                //  _activeClassResult = state.activeClass.data!;
-              } else {
-                Future.delayed(Duration.zero, () async {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                    content: Text(""),
-                  ));
-                });
-              }
+          if (state is ProfileLoaded) {
+            if (state.profiledata.result == "success") {
+              profileData = state.profiledata.data!;
+              //  _activeClassResult = state.activeClass.data!;
+            } else {
+              Future.delayed(Duration.zero, () async {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text(""),
+                ));
+              });
             }
-            return _class();
-          },
-          listener: (conttext, state) {}),
-    );
+          }
+          return _class();
+        },
+        listener: (conttext, state) {});
   }
 
   Widget _class() {
